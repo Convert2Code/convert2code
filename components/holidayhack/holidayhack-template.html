@@ -1,0 +1,312 @@
+<!-- GLOBAL -->
+<div class="h-100 mountain-background">
+	<!--
+	<div class="dib w-20 br2 bg-c2c-blue shadow-4 fl">
+		<h1 class="f1 ma1 pa3 pb0 black fw7 white">hack</h1>
+		<h2 class="mt0 ml1 pl3 black fw5">/hak/</h2>
+		<h2 class="mt0 ml1 pl3 black fw7"><i>v.</i> <span class="fw4 f3 white lh-copy">to achieve novel and clever outcomes by creatively overcoming limitations of software systems</span></h2>
+	</div>
+-->
+
+	<div class="h-100 pt4">
+		<center>
+			<div class="w-100">
+				<!-- Sign up CTA on middle right -->
+
+				<p class="f-5-ns f3 fw4 pt3 black">what will you create?</p>
+
+				<div class="w-40 dib-ns v-top tl black tc mt4 mr6 dn">
+					<p class="f2 pt2 fw7"> Join Convert to Code for our first ever hackathon!</p>
+					<div>
+						<p class="dib f3 fw5">December 15th, Listrak</p>
+						<p class="dib">
+							<span class="di f3 fw5">
+								<i class="fa fa-map-marker fa-1x fa-fw light-red tooltip pointer">
+
+									<span class="di tooltiptext f5">
+										<span class="triangle-left-light-red triangle-left v-top"></span><span  class="bg-light-red white br2 pa2 v-top">100 W Millport Rd, Lititz, PA 17543</span>
+									</span>
+
+								</i>
+							</span>
+						</p>
+					</div>
+					<p class="f4 fw5 tl lh-copy mt3"> Learn from each other, from our code mentors or from one of many in-house workshops. Worried you've never coded before? <span>we have code starter packs just for you!</span> And the best part is, it's completely <span>FREE!</span> No matter your age or your skill level, we have something for you!</p>
+				</div>
+
+				<div class="dib w-20-ns w-90 bg-white mt4 pa2 br3 shadow-1">
+
+					<div ng-click="toggle('indiv')" class="dib no-outline pointer pa3 bw2 ba b--white fll w-50 tc f4 fw1" ng-mouseenter="indiv = true" ng-mouseleave="indiv = false">Individual</div>
+					<div ng-click="toggle('group')" class="dib no-outline pointer pa3 bw2 ba b--white fll w-50 tc f4 fw1" ng-mouseenter="group = true" ng-mouseleave="group = false">Group</div>
+					<div class="dib w-50 fll br2 h-5px" ng-class="(indiv || registerToggle === 'indiv') ? 'bg-c2c-orange' : 'bg-white' "></div>
+					<div class="dib w-50 fll br2 h-5px" ng-class="(group || registerToggle === 'group') ? 'bg-c2c-orange' : 'bg-white' "></div>
+					<span ng-show="registerToggle === 'indiv'">
+						<form name="individualSignupForm" novalidate>
+							<ng-form name="individualForm">
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="first name" name="firstName" ng-model="firstName" required>
+									<p class="help-block light-red tc" ng-show="individualForm.firstName.$invalid && !individualForm.firstName.$pristine">This field is required</p>
+								</div>
+
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="last name" name="lastName" ng-model="lastName" required>
+									<p class="help-block light-red tc" ng-show="individualForm.lastName.$invalid && !individualForm.lastName.$pristine">This field is required</p>
+								</div>
+
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="email" name="email" ng-model="email" required>
+									<p class="help-block light-red tc" ng-show="individualForm.email.$invalid && !individualForm.email.$pristine">This field is required</p>
+									<p class="help-block light-red tc" ng-show="!(emailRegEx.test(email)) && !individualForm.email.$pristine">Please enter a valid email address</p>
+								</div>
+
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="school district" name="schoolDistrict" ng-model="schoolDistrict" required>
+									<p class="help-block light-red tc" ng-show="individualForm.schoolDistrict.$invalid && !individualForm.schoolDistrict.$pristine">This field is required</p>
+								</div>
+
+								<input type="button" value="count me in!" class="w-100 pointer pa3 mt2 no-outline no-border white fw6 f4 br2 bg-light-red hover-off-light-red" ng-click="submitIndividual()" ng-disabled="individualForm.$invalid" ng-show="!registerMessage">
+								<p class="w-100 pa3 mt2 no-outline no-border white fw2 f9 br2 bg-white green" ng-show="registerMessage">{{registerMessage}}</p>
+							</ng-form>
+						</form>
+					</span>
+
+					<span ng-show="registerToggle === 'group'">
+						<form name="groupSignupForm" novalidate>
+							<ng-form name="groupForm">
+
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="group name" name="groupName" ng-model="groupName" required>
+									<p class="help-block light-red tc" ng-show="groupForm.groupName.$invalid && !groupForm.groupName.$pristine">This field is required</p>
+								</div>
+
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="group leader's first name" name="leaderFirstName" ng-model="leaderFirstName" required>
+									<p class="help-block light-red tc" ng-show="groupForm.leaderFirstName.$invalid && !groupForm.leaderFirstName.$pristine">This field is required</p>
+								</div>
+
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="group leader's last name" name="leaderLastName" ng-model="leaderLastName" required>
+									<p class="help-block light-red tc" ng-show="groupForm.leaderLastName.$invalid && !groupForm.leaderLastName.$pristine">This field is required</p>
+								</div>
+
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="group leader's email" name="leaderEmail" ng-model="leaderEmail" required>
+									<p class="help-block light-red tc" ng-show="groupForm.leaderEmail.$invalid && !groupForm.leaderEmail.$pristine">This field is required</p>
+									<p class="help-block light-red tc" ng-show="!(emailRegEx.test(leaderEmail)) && !groupForm.leaderEmail.$pristine">Please enter a valid email address</p>
+								</div>
+
+								<div class="db">
+									<input type="text" class="w-100 mt2 mb2 pa3 center" placeholder="school district" name="groupDistrict" ng-model="groupDistrict" required>
+									<p class="help-block light-red tc" ng-show="groupForm.groupDistrict.$invalid && !groupForm.groupDistrict.$pristine">This field is required</p>
+								</div>
+
+								<div class="db mt3 mb3">
+									<label for="groupSize" class="mt2 mb2 pa3 center gray">Group Size </label>
+									<div class="mt2">
+										<span class=""><i class="fa fa-minus fa-1x fa-fw gray dim pointer no-outline" ng-click="decrement()"></i></span>
+										<span class="gray fw9 f3">{{groupSize}}</span>
+										<span class=""><i class="fa fa-plus fa-1x fa-fw gray dim pointer no-outline" ng-click="increment()"></i></span>
+									</div>
+									<!-- <input type="number" name="groupSize" min="1" max="20" class="no-outline gray w-20" ng-model="groupSize" required> -->
+									<p class="help-block light-red tc" ng-show="groupForm.groupSize.$invalid && !groupForm.groupSize.$pristine">This field is required</p>
+								</div>
+								<!-- <p class="help-block light-red" ng-show="individualForm.firstName.$invalid">Please enter a valid email address</p> -->
+								<input type="button" value="count us in!" class="w-100 pointer pa3 mt2 no-outline no-border white fw6 f4 br2 bg-light-red hover-off-light-red" ng-click="submitGroup()" ng-disabled="groupForm.$invalid" ng-show="!registerMessage">
+								<p class="w-100 pa3 mt2 no-outline no-border white fw2 f9 br2 bg-white green" ng-show="registerMessage">{{registerMessage}}</p>
+							</ng-form>
+						</form>
+					</span>
+				</div>
+			</div>
+		</center>
+		<div class="w-100 absolute bottom-2 tc">
+			<div class="f4 fw4 pa2 hvr-shrink c2c-orange bg-white br2 center no-outline pointer" ng-click="scrollDown()">learn more<span><i class="fa fa-chevron-down fa-1x fa-fw c2c-orange"></i></span></div>
+		</div>
+	</div>
+
+	<div class="w-100 bg-c2c-blue white pa3 tc" id="learnmore">
+
+		<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+			<div class="dib">
+				<h3>Never Coded Before?</h3>
+				<p class="f4 fw4">If you have never coded before, we will have code mentors, introductory workshops, and code starter packs just for you!</p>
+			</div>
+		</div>
+
+		<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+			<div class="dib">
+				<h3>Free. Always.</h3>
+				<p class="f4 fw4">If you are worried about cost, don't be. Our core principle is the Philosophy of Free, that no matter who you are, where you come from or what you believe, you are welcome, free of charge, to any Convert to Code event, for as long as we are in operation. Period.</p>
+			</div>
+		</div>
+
+		<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+			<div class="dib">
+				<h3>What is a hackathon?</h3>
+				<p class="f4 fw4">A Hackathon is a 'coding marathon' where you convert your crazy ideas and passions, into code.</p>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="w-100 bg-white pa3 tc">
+
+		<div class="w-40-ns w-90 mt5 mb5 center shadow-4">
+			<div class="dib w-100 bg-light-red br2 pa2">
+				<h1 class="f1 ma1 pa3 pb0 black fw7 white">hack</h1>
+				<h2 class="mt0 ml1 pl3 black fw5">/hak/</h2>
+				<h2 class="mt0 ml1 pl3 black fw7"><i>v.</i> <span class="fw4 f3 white lh-copy">to achieve novel and clever outcomes by creatively overcoming limitations of software systems</span></h2>
+			</div>
+		</div>
+<!--
+		<h1 class="gray">Competition Categories</h1>
+
+		<div>
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Transportation</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Space</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Gaming</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Medical</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Design</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Sports</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+		</div>
+		<div>
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Security</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Hardware</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+
+			<div class="dib tc w-20 ma2 pa3 v-top f3 bg-light-red br4 white shadow-4">
+				<div class="dib">
+					<h3>Other</h3>
+					<p class="f4 fw4"></p>
+				</div>
+			</div>
+
+			social good
+
+		</div> -->
+
+	</div>
+
+	<div class="w-100 bg-c2c-orange white pa3 tc">
+		<h1 class="">FAQs</h1>
+
+		<div>
+			<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+				<div class="dib">
+					<h3>Who Can Come?</h3>
+					<p class="f4 fw4">Anyone! If you are an experienced coder, come! If you have never seen a line of code in your life, come! If you love computers or just want to learn more about how they work, we have something for everyone!</p>
+				</div>
+			</div>
+
+			<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+				<div class="dib">
+					<h3>Cost?</h3>
+					<p class="f4 fw4">Free. Period.</p>
+				</div>
+			</div>
+
+			<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+				<div class="dib">
+					<h3>Where and where will the Holiday Hackathon be?</h3>
+					<p class="f4 fw4">Listrak has graciously allowed us to use their headquarters to host this event! Their headquarters are located at <span class="fw7 black">100 W Millport Rd, Lititz, PA 17543</span>. We will hack for six hours straight(9:30 - 3:30)</p>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+				<div class="dib">
+					<h3>What if I have Never Coded Before?</h3>
+					<p class="f4 fw4">We have code starter packs, introductory workshops, and code mentors all to get you started so, by the end of the hackathon, you can build something you are proud of!</p>
+				</div>
+			</div>
+
+			<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+				<div class="dib">
+					<h3>What Should I Bring?</h3>
+					<p class="f4 fw4">You should bring your computer, a charger, any snacks and of course, your imagination!</p>
+				</div>
+			</div>
+
+			<div class="dib-ns w-20-ns db w-90 ma2 pa3 v-top f3 bg-white br4 gray shadow-4 tc">
+				<div class="dib">
+					<h3>Other Questions?</h3>
+					<p class="f4 fw4">Contact us at converttocode@gmail.com</p>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="w-100 bg-c2c-blue white pa3">
+		<div class="w-50 center ma2 mb3 tc">
+
+			<a href="https://www.instagram.com/convert2code" target="_blank" class="white hvr-shrink ma2">
+				<i class="fa fa-instagram fa-2x fa-fw"></i>
+			</a>
+
+			<a href="https://www.facebook.com/convert2code" target="_blank" class="white hvr-shrink ma2">
+				<i class="fa fa-facebook fa-2x fa-fw"></i>
+			</a>
+
+			<a href="https://www.twitter.com/convert2code" target="_blank" class="white hvr-shrink ma2">
+				<i class="fa fa-twitter fa-2x fa-fw"></i>
+			</a>
+
+			<a href="mailto:converttocode@gmail.com" class="white hvr-shrink ma2">
+				<i class="fa fa-envelope fa-2x fa-fw"></i>
+			</a>
+		</div>
+		<div id="footer-notes white" class="white ma2 mt3 tc">&copy 2018, Convert to Code.</div>
+	</div>
+</div>
+
+<div class="f4 fw4 pa2 hvr-shrink white bg-c2c-orange br2 center no-outline pointer fixed top-2 right-2 dn" id="signupbutton" ng-click="scrollUp()">
+	let's get coding<span><i class="fa fa-chevron-up fa-1x fa-fw white"></i></span>
+</div>

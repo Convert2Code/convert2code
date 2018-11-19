@@ -1,0 +1,56 @@
+<html>
+	<head>
+		<link rel="icon" href="Images/WSGraphic.png">
+		<title>Convert to Code</title>
+
+		<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="stylesheets/main.css">
+    <link rel="stylesheet" type="text/css" href="stylesheets/tachyons.css">
+		<link rel="stylesheet" href="stylesheets/font-awesome/css/font-awesome.min.css">
+
+		<script src="./node_modules/angular/angular.js" type="text/javascript" ></script>
+	</head>
+	<body>
+
+		<div>
+			<div>Individual</div>
+			<form name="individualSignupForm" novalidate>
+				<ng-form name="individualForm">
+
+					<input type="text" class="" placeholder="first name" name="firstName" ng-model="" required>
+    			<p class="help-block" ng-show="individualForm.firstName.$invalid">This field is required</p>
+
+    			<input type="text" class="" placeholder="last name" name="lastName" ng-model="" required>
+    			<p class="help-block" ng-show="individualForm.lastName.$invalid">This field is required</p>
+
+    			<input type="text" class="" placeholder="email" name="email" ng-model="" required>
+    			<p class="help-block" ng-show="individualForm.firstName.$invalid">This field is required</p>
+    			<!-- <p class="help-block" ng-show="individualForm.firstName.$invalid">Please enter a valid email address</p> -->
+
+    			<input type="button" value="register ME" class="" ng-click="">
+				</ng-form>
+			</form>
+
+			<div>Group</div>
+			<form name="groupSignupForm" novalidate>
+				<ng-form name="groupForm">
+
+					<input type="text" class="" placeholder="first name" name="firstName" ng-model="" required>
+    			<p class="help-block" ng-show="groupForm.firstName.$invalid">This field is required</p>
+
+    			<input type="text" class="" placeholder="last name" name="lastName" ng-model="" required>
+    			<p class="help-block" ng-show="groupForm.lastName.$invalid">This field is required</p>
+
+    			<input type="text" class="" placeholder="email" name="email" ng-model="" required>
+    			<p class="help-block" ng-show="groupForm.firstName.$invalid">This field is required</p>
+    			<!-- <p class="help-block" ng-show="individualForm.firstName.$invalid">Please enter a valid email address</p> -->
+
+    			<input type="button" value="register GROUP" class="" ng-click="">
+				</ng-form>
+			</form>
+		</div>
+
+	</body>
+</html>
