@@ -1,6 +1,7 @@
 @font-face { font-family: TinDog; src: url('TinDog.ttf'); }
 @font-face { font-family: TinDogIt; src: url('TinDogIt.ttf'); }
 @font-face { font-family: Avenir; src: url('Avenir.ttc'); }
+@font-face { font-family: Montserrat; src: url('Montserrat-Regular.ttf'); }
 	html { height: 100%; }
 
 	body {
