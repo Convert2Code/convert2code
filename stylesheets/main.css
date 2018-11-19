@@ -185,6 +185,10 @@
 		background-color: #ff836d;
 	}
 
+	.c2c-orange-underline {
+	  text-decoration: underline #ffcc33;
+	}
+
 	.hover-c2c-orange-bottom:hover { border-bottom-color: #ffcc33; }
 
 	.bg-c2c-blue { background-color: #33ccff; }
