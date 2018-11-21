@@ -9,7 +9,9 @@ var participantSchema = new mongoose.Schema({
 	firstName: String,
 	lastName: String,
 	email: String,
-	district: String
+	district: String,
+	age: Number,
+	experience: Number
 });
 
 // the schema is useless so far
