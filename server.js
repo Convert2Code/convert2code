@@ -99,8 +99,7 @@ app.post('/group/new', function(req, res) {
 
 	var group = {
 		groupName: req.body.groupName,
-		leaderFirstName: req.body.leaderFirstName,
-		leaderLastName: req.body.leaderLastName,
+		leaderName: req.body.leaderName,
 		leaderEmail: req.body.leaderEmail,
 		district: req.body.district,
 		groupSize: req.body.groupSize

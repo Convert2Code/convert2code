@@ -7,8 +7,7 @@ var mongoose = require('mongoose');
 // create a schema
 var groupSchema = new mongoose.Schema({
 	groupName: String,
-	leaderFirstName: String,
-	leaderLastName: String,
+	leaderName: String,
 	leaderEmail: String,
 	district: String,
 	groupSize: Number

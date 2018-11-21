@@ -29,8 +29,7 @@ convert.controller('holidayhackController', ['$scope', '$resource', '$rootScope'
 
       var newGroup = {
         groupName: $scope.groupName,
-        leaderFirstName: $scope.leaderFirstName,
-        leaderLastName: $scope.leaderLastName,
+        leaderName: $scope.leaderName,
         leaderEmail: $scope.leaderEmail,
         district: $scope.district,
         groupSize: $scope.groupSize
