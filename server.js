@@ -80,7 +80,9 @@ app.post('/participant/new', function(req, res) {
 		firstName: req.body.firstName,
 		lastName: req.body.lastName,
 		email: req.body.email,
-		district: req.body.district
+		district: req.body.district,
+		age: req.body.age,
+		experience: req.body.experience
   };
 
   Participant.create(participant, function(err, participant) {

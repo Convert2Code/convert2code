@@ -1,12 +1,5 @@
 <!-- GLOBAL -->
 <div class="h-100 gray-mountain-background">
-	<!--
-	<div class="dib w-20 br2 bg-c2c-blue shadow-4 fl">
-		<h1 class="f1 ma1 pa3 pb0 black fw7 white">hack</h1>
-		<h2 class="mt0 ml1 pl3 black fw5">/hak/</h2>
-		<h2 class="mt0 ml1 pl3 black fw7"><i>v.</i> <span class="fw4 f3 white lh-copy">to achieve novel and clever outcomes by creatively overcoming limitations of software systems</span></h2>
-	</div>
--->
 
 	<div class="h-100">
 		<center>
@@ -65,6 +58,26 @@
 									<p class="help-block light-red tc" ng-show="individualForm.schoolDistrict.$invalid && !individualForm.schoolDistrict.$pristine">This field is required</p>
 								</div>
 
+								<div class="db ma1">
+									<span class="dib mr2">
+										<label for="age" class="pa3 center gray">Age</label>
+										<div class="mt1">
+											<span class=""><i class="fa fa-minus fa-1x fa-fw gray dim pointer no-outline" ng-click="age > 1 ? age = age - 1 : age;"></i></span>
+											<span class="gray fw9 f3">{{age}}</span>
+											<span class=""><i class="fa fa-plus fa-1x fa-fw gray dim pointer no-outline" ng-click="age = age + 1;"></i></span>
+										</div>
+									</span>
+
+									<span class="dib ml2">
+										<label for="experience" class="pa3 center gray">Experience: <span class="black">{{experience_levels[experience - 1]}}</span></label>
+										<div class="mt1">
+											<span class=""><i class="fa fa-minus fa-1x fa-fw gray dim pointer no-outline" ng-click="experience > 1 ? experience = experience - 1 : experience;"></i></span>
+											<span class="gray fw9 f3">{{experience}}<span class="black"> / 5</span></span>
+											<span class=""><i class="fa fa-plus fa-1x fa-fw gray dim pointer no-outline" ng-click="experience < 5 ? experience = experience + 1 : experience;"></i></span>
+										</div>
+									</span>
+								</div>
+
 								<input type="button" value="count me in!" class="w-100 pointer pa3 mt2 no-outline no-border white fw6 f4 br2 bg-c2c-blue hover-c2c-off-blue" ng-click="submitIndividual()" ng-disabled="individualForm.$invalid" ng-show="!registerMessage">
 								<p class="w-100 pa3 mt2 no-outline no-border white fw2 f9 br2 bg-white green" ng-show="registerMessage">{{registerMessage}}</p>
 							</ng-form>
@@ -97,16 +110,13 @@
 								</div>
 
 								<div class="db ma1">
-									<label for="groupSize" class="pa3 center gray">Group Size </label>
+									<label for="groupSize" class="pa3 center gray">Group Size</label>
 									<div class="mt1">
-										<span class=""><i class="fa fa-minus fa-1x fa-fw gray dim pointer no-outline" ng-click="decrement()"></i></span>
+										<span class=""><i class="fa fa-minus fa-1x fa-fw gray dim pointer no-outline" ng-click="groupSize > 1 ? groupSize = groupSize - 1 : groupSize;"></i></span>
 										<span class="gray fw9 f3">{{groupSize}}</span>
-										<span class=""><i class="fa fa-plus fa-1x fa-fw gray dim pointer no-outline" ng-click="increment()"></i></span>
+										<span class=""><i class="fa fa-plus fa-1x fa-fw gray dim pointer no-outline" ng-click="groupSize = groupSize + 1;"></i></span>
 									</div>
-									<!-- <input type="number" name="groupSize" min="1" max="20" class="no-outline gray w-20" ng-model="groupSize" required> -->
-									<p class="help-block light-red tc" ng-show="groupForm.groupSize.$invalid && !groupForm.groupSize.$pristine">This field is required</p>
 								</div>
-								<!-- <p class="help-block light-red" ng-show="individualForm.firstName.$invalid">Please enter a valid email address</p> -->
 								<input type="button" value="count us in!" class="w-100 pointer pa3 mt2 no-outline no-border white fw6 f4 br2 bg-c2c-blue hover-c2c-off-blue" ng-click="submitGroup()" ng-disabled="groupForm.$invalid" ng-show="!registerMessage">
 								<p class="w-100 pa3 mt2 no-outline no-border white fw2 f9 br2 bg-white green" ng-show="registerMessage">{{registerMessage}}</p>
 							</ng-form>
@@ -145,7 +155,7 @@
 
 	</div>
 
-	<div class="w-100 bg-white pa3 tc">
+	<div class="w-100 bg-white pa3 tc holiday-hack-banner-background">
 
 		<div class="w-40-ns w-90 mt5 mb5 center shadow-4">
 			<div class="dib w-100 bg-light-red br2 pa2">

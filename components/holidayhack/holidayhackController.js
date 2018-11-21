@@ -3,11 +3,15 @@
 convert.controller('holidayhackController', ['$scope', '$resource', '$rootScope', '$http', '$location',
   function ($scope, $resource, $rootScope, $http, $location) {
 
-    $scope.emailRegEx = /.+@.+\..+/;
     $scope.registerToggle = 'indiv';
-    $scope.groupSize = 5;
     $scope.indiv = false;
     $scope.group = false;
+
+    $scope.emailRegEx = /.+@.+\..+/;
+    $scope.groupSize = 5;
+    $scope.age = 15;
+    $scope.experience = 3;
+    $scope.experience_levels = ['none', 'little', 'beginner', 'intermediate', 'advanced'];
 
     $scope.submitIndividual = function() {
 
@@ -15,7 +19,9 @@ convert.controller('holidayhackController', ['$scope', '$resource', '$rootScope'
         firstName: $scope.firstName,
         lastName: $scope.lastName,
         email: $scope.email,
-        district: $scope.schoolDistrict
+        district: $scope.schoolDistrict,
+        age: $scope.age,
+        experience: $scope.experience
       };
 
       $resource('/participant/new').save(newParticipant, function(participant) {
@@ -43,8 +49,6 @@ convert.controller('holidayhackController', ['$scope', '$resource', '$rootScope'
       });
     }
     $scope.toggle = function(toggle) { $scope.registerToggle = toggle; }
-    $scope.increment = function() { $scope.groupSize++; }
-    $scope.decrement = function() { if($scope.groupSize > 1) $scope.groupSize--; }
     $scope.scrollDown = function() {
       $("html, body").animate({
         scrollTop: $('#learnmore').offset().top
