@@ -4,7 +4,14 @@ convert.controller('loginController', ['$scope', '$resource', '$rootScope', '$ht
   function ($scope, $resource, $rootScope, $http, $location) {
 
     $scope.login = function() {
-      // TODO Login logic here
+
+      user = {
+        username: $scope.username,
+        password: $scope.password
+      }
+
+      $resource('/user/login').save(user, function(user) {}
+
     }
 
   }]);

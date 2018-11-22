@@ -10,6 +10,12 @@ convert.controller('registerController', ['$scope', '$resource', '$rootScope', '
 
     $scope.register = function() {
       // TODO Login logic here
+
+      var newUser = {}
+
+      $resource('/user/new').save(newUser, function(user) {}
+
+
     }
 
   }]);

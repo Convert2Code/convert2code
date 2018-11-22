@@ -4,7 +4,7 @@
 			<!-- Need the .value ? -->
 			<input type="text" class="w-100 mt2 mb1 pa3 center" placeholder="username" name="username" ng-model="username" required>
 			<p class="help-block light-red tc" ng-show="loginForm.username.$invalid && !loginForm.username.$pristine">This field is required</p>
-			<p class="help-block light-red tc" ng-show="usernames.contains(loginForm.username.value) && !loginForm.username.$pristine">This field is required</p>
+			<p class="help-block light-red tc" ng-show="usernames.contains(loginForm.username.value) && !loginForm.username.$pristine">This username is already taken</p>
 		</div>
 
 		<div class="db">
@@ -15,7 +15,7 @@
 		<div class="db">
 			<input type="text" class="w-100 mt1 mb1 pa3 center" placeholder="confirm password" name="confirmPassword" ng-model="" required>
 			<p class="help-block light-red tc" ng-show="!loginForm.password.$pristine">This field is required</p>
-			<p class="help-block light-red tc" ng-show="loginForm.password.value !== loginForm.confirmPassword.value && !loginForm.password.$pristine">This field is required</p>
+			<p class="help-block light-red tc" ng-show="loginForm.password.value !== loginForm.confirmPassword.value && !loginForm.password.$pristine">Passwords must match</p>
 		</div>
 
 		<div>

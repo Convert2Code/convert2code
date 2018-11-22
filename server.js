@@ -19,6 +19,8 @@ var mongoose = require('mongoose');
 var session = require('client-sessions');
 var bodyParser = require('body-parser');
 var async = require('async');
+var express = require('express');
+var bcrypt = require('bcrypt');
 
 /************************
  *
@@ -38,8 +40,9 @@ var Post = require('./schema/post.js');
  *
  ************************/
 
-var express = require('express');
 var app = express();
+
+var BCRYPT_SALT_ROUNDS = 12;
 
 mongoose.connect('mongodb://localhost/convert2code');
 
@@ -152,8 +155,45 @@ app.get('/groups/all', function(req, res) {
  *
  ************************/
 
+/* TODO: add requirelogin() */
+
 /* TODO: revisit security and id checking */
-app.post('/user/login', function(req, res) {});
+app.post('/user/login', function(req, res) {
+	/* Incorporate BYCRYPT */
+
+	var username = req.body.username;
+	var password = req.body.password;
+
+	User.findOne({ username: username }, function(err, user) {
+		if(err) {
+			console.log('Error finding user with that username: ' + err);
+		  res.status(400).send(JSON.stringify('Unable to find a user with that username'));
+		  return;
+		}
+
+		bcrypt.compare(password, user.password, function(_err, samePassword) {
+  		if(samePassword) {
+  			console.log('Sucessfully logged in user: ' + user.firstName + ' ' + user.lastName);
+
+  			/* REINCORPORATE BCRYPT
+	  		req.session._id = user._id;
+		    req.session.username = username;
+		    req.session.firstName = user.firstName;
+		    req.session.lastName = user.lastName;
+		    */
+
+	  		res.status(200).send(JSON.stringify(user));
+				return;
+  		}
+  		else {
+				console.log("Error authenticating user: incorrect password");
+				res.status(400).send();
+				return;
+  		}
+  	});
+	});
+});
+
 app.post('/user/new', function(req, res) {
 	/* Incorporate BYCRYPT */
 	var newUser = {
@@ -165,15 +205,24 @@ app.post('/user/new', function(req, res) {
 		notifications: req.body.notifications
 	};
 
-	User.create(newUser, function(err, user) {
-		if(err) {
-			console.log('Error creating new user: ' + err);
-		  res.status(400).send(JSON.stringify('Unable to create new user'));
-		  return;
-		}
-		console.log('New user created: ' + user.username);
-	  res.status(200).send(user);
-	  return
+	bcrypt.hash(newUser.password, BCRYPT_SALT_ROUNDS).then(function(hashedPassword) {
+
+		newUser.password = hashedPassword;
+
+		User.create(newUser, function(err, user) {
+			if(err) {
+				console.log('Error creating new user: ' + err);
+			  res.status(400).send(JSON.stringify('Unable to create new user'));
+			  return;
+			}
+			console.log('New user created: ' + user.username);
+		  res.status(200).send(user);
+		  return
+		});
+	}).catch(function(err) {
+		console.log('Unable to hahs given string');
+    res.status(400).send(JSON.stringify(err));
+		return;
 	});
 });
 
