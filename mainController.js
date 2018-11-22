@@ -16,6 +16,18 @@ convert.config(['$routeProvider',
         templateUrl: 'components/holidayhack/holidayhack-participants-template.html',
         controller: 'holidayhackParticipantsController'
       }).
+      when('/login', {
+        templateUrl: 'components/login/login-template.html',
+        controller: 'loginController'
+      }).
+      when('/register', {
+        templateUrl: 'components/register/register-template.html',
+        controller: 'registerController'
+      }).
+      when('/user/:id', {
+        templateUrl: 'components/user/user-template.html',
+        controller: 'userController'
+      }).
       otherwise({
       	redirectTo: '/'
       });

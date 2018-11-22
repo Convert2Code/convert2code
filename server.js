@@ -155,6 +155,19 @@ app.get('/groups/all', function(req, res) {
  *
  ************************/
 
+app.get('/users', function(req, res) {
+	User.find({}, function(err, users) {
+		if(err) {
+			console.log('Error finding users: ' + err);
+		  res.status(400).send(JSON.stringify('Unable to find users'));
+		  return;
+		}
+		console.log('Sucessfully found information for users');
+		res.status(200).send(JSON.stringify(users));
+		return;
+	});
+});
+
 /* TODO: add requirelogin() */
 
 /* TODO: revisit security and id checking */
@@ -174,6 +187,8 @@ app.post('/user/login', function(req, res) {
 		bcrypt.compare(password, user.password, function(_err, samePassword) {
   		if(samePassword) {
   			console.log('Sucessfully logged in user: ' + user.firstName + ' ' + user.lastName);
+
+  			// Update lastSignInAt
 
   			/* REINCORPORATE BCRYPT
 	  		req.session._id = user._id;
@@ -200,9 +215,9 @@ app.post('/user/new', function(req, res) {
 		_id: mongoose.Types.ObjectId(),
 		username: req.body.username,
 		password: req.body.password,
-		lastSignInAt: Date.now,
+		lastSignInAt: Date.now(),
 		interests: req.body.interests,
-		notifications: req.body.notifications
+		notifications: req.body.notifications // Would a new user have any notifications?
 	};
 
 	bcrypt.hash(newUser.password, BCRYPT_SALT_ROUNDS).then(function(hashedPassword) {
@@ -216,11 +231,11 @@ app.post('/user/new', function(req, res) {
 			  return;
 			}
 			console.log('New user created: ' + user.username);
-		  res.status(200).send(user);
+		  res.status(200).send(JSON.stringify(user));
 		  return
 		});
 	}).catch(function(err) {
-		console.log('Unable to hahs given string');
+		console.log('Unable to hash given string');
     res.status(400).send(JSON.stringify(err));
 		return;
 	});

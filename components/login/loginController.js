@@ -10,8 +10,12 @@ convert.controller('loginController', ['$scope', '$resource', '$rootScope', '$ht
         password: $scope.password
       }
 
-      $resource('/user/login').save(user, function(user) {}
-
+      $resource('/user/login').save(user, function(user) {
+        console.log(user);
+        $location.path('/user/' + user._id);
+      }, function(err) {
+        console.log(err);
+        $scope.errorMessage = err;
+      });
     }
-
   }]);
