@@ -254,6 +254,12 @@
 	.pb-0px { padding-bottom: 0px; }
 	.nav-tile-pad { padding: 30px 24px; }
 
+	.tag-container {
+		height: 400px;
+		width: 300px;
+		overflow: scroll;
+	}
+
 	.fll { float: left; }
 	.flr { float: right; }
 

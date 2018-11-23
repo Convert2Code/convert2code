@@ -1,14 +1,21 @@
-<h1>HIIIIIIIII</h1>
+<!-- <h1 class="ma0">HI {{user.username}}</h1> -->
 
-<div>
-	<h3>Interests</h3>
-	<div ng-repeat="tag in tags">{{tag}}</div>
+<div class="dib shadow-4 ma2 tag-container v-top">
+	<h3 class="w-100 tc">interests</h3>
+	<div class="f6 fw7">
+		<div ng-repeat="tag in tags" class="pa2 pointer hover-c2c-orange">{{tag}}</div>
+		<div>see all</div>
+	</div>
 	<!-- Only display most popular -->
-	<div>see all</div>
 </div>
 
-<span ng-click="toggle = 'posts' ">my posts</span>
-<span ng-click="toggle = 'feed' ">feed</span>
+<div class="dib w-50 v-top">
+	<input type="text" placeholder="search" class="w-100 pa3 ma2 ">
+	<div class="w-100 mt2 mb2 tc">
+		<span ng-click="toggle = 'posts' " class="pa2 mr2 no-outline pointer bg-c2c-orange black f5 fw4 br3">my posts</span>
+		<span ng-click="toggle = 'feed' " class="pa2 ml2 no-outline pointer bg-c2c-orange black f5 fw4 br3">feed</span>
+	</div>
 
-<div ng-include="'components/post/post-template.html'" ng-controller="postController" ng-show="toggle === 'posts'"></div>
-<div ng-include="'components/feed/feed-template.html'" ng-controller="feedController" ng-show="toggle === 'feed'"></div>
+	<div ng-include="'components/post/post-template.html'" ng-controller="postController" ng-show="toggle === 'posts'"></div>
+	<div ng-include="'components/feed/feed-template.html'" ng-controller="feedController" ng-show="toggle === 'feed'"></div>
+</div>
