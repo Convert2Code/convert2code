@@ -1,0 +1,25 @@
+<div class="w-100 bg-blue">
+	<h1>New Post</h1>
+	<!-- WRITE NEW POST -->
+	<div>
+
+		<div>
+			<!-- Add ng-style to each tag -->
+			<span ng-repeat="tag in newPostTags" ng-click="toggleTag(tag)">{{tag}}</span>
+		</div>
+
+		<input type="text" name="title" placeholder="title" ng-model="title">
+		<input type="text" name="content" placeholder="content" ng-model="content">
+		<input type="button" name="post" value="+ post" ng-click="newPost()">
+	</div>
+	<!-- ALL MY POSTS -->
+	<div>
+
+		<div ng-repeat="post in myPosts">
+			<span>{{post.title}}</span>
+			<span>{{post.content}}</span>
+		</div>
+
+	</div>
+
+</div>

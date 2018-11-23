@@ -28,6 +28,10 @@ convert.config(['$routeProvider',
         templateUrl: 'components/user/user-template.html',
         controller: 'userController'
       }).
+      when('/post/:id', {
+        templateUrl: 'components/post/view-post-template.html',
+        controller: 'viewPostController'
+      }).
       otherwise({
       	redirectTo: '/'
       });

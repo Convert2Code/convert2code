@@ -1,3 +1,14 @@
 <h1>HIIIIIIIII</h1>
 
-<div ng-include="'components/feed/feed-template.html'" ng-controller="feedController"></div>
+<div>
+	<h3>Interests</h3>
+	<div ng-repeat="tag in tags">{{tag}}</div>
+	<!-- Only display most popular -->
+	<div>see all</div>
+</div>
+
+<span ng-click="toggle = 'posts' ">my posts</span>
+<span ng-click="toggle = 'feed' ">feed</span>
+
+<div ng-include="'components/post/post-template.html'" ng-controller="postController" ng-show="toggle === 'posts'"></div>
+<div ng-include="'components/feed/feed-template.html'" ng-controller="feedController" ng-show="toggle === 'feed'"></div>

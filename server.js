@@ -320,9 +320,65 @@ app.get('/user/:id/posts', function(req, res) {
 *
 ************************/
 
-app.post('/post/new', function(req, res) {});
+app.get('/posts', function(req, res) {
+	Post.find({}, function(err, posts) {
+		if(err) {
+			console.log('Error finding posts: ' + err);
+		  res.status(400).send(JSON.stringify('Unable to find posts'));
+		  return;
+		}
+		console.log('Sucessfully found information for all posts');
+		res.status(200).send(JSON.stringify(posts));
+		return;
+	});
+});
+
+app.post('/post/:userId/new', function(req, res) {
+
+	var userId = req.params.userId;
+
+	var newPost = {
+		createdBy: req.params.id,
+		title: req.body.title,
+		content: req.body.content,
+		tags: req.body.tags
+	};
+
+	Post.create({ newPost }, function(err, post) {
+		if(err) {
+			console.log('Error creating post for user: ' + userId +' : ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
+	  	return;
+		}
+		console.log('Sucessfully posted for: ' + userId);
+		res.status(200).send(JSON.stringify(post));
+		return;
+	});
+});
+
 app.get('/post/:id', function(req, res) {});
-app.post('/post/:id/update', function(req, res) {});
+
+app.post('/post/:id/update', function(req, res) {
+
+	var postId = req.params.id
+
+	Post.find({ _id: postId }, function(err, post) {
+		if(err) {
+			console.log('Error finding post matching id: ' + postId + ' : ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find post: ' + postId));
+	  	return;
+		}
+
+		// TODO: update post logic goes here
+		// TODO: Figure out how to obtain updating user's id
+			// Check with session?
+
+		console.log('Sucessfully updated post: ' + postId);
+		res.status(200).send(JSON.stringify(post));
+		return;
+	});
+});
+
 app.post('/post/:id/delete', function(req, res) {});
 
 var server = app.listen(80, function () {
