@@ -1,4 +1,18 @@
-<h1>HIIIIIIIII</h1>
+<div class="w-100 bg-red">
+	<h1>FEED</h1>
+	<!-- SEARCH HEADER -->
+	<div>
+		<input type="text" name="search" placeholder="search" ng-model="searchText">
+	</div>
 
-<div>
+	<!-- RAILS CONTAINER -->
+	<div class="w-100 ba bg-blue">
+
+		<div ng-repeat="post in posts">
+			<span>{{post.title}}</span>
+			<span>{{post.content}}</span>
+		</div>
+
+	</div>
+
 </div>

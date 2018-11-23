@@ -308,7 +308,7 @@ app.get('/user/:id/posts', function(req, res) {
 	  	res.status(400).send(JSON.stringify('Unable to find posts for: ' + userId));
 	  	return;
 		}
-		console.log('Sucessfully retrieved posts for: ' + user.username);
+		console.log('Sucessfully retrieved posts for: ' + userId);
 		res.status(200).send(JSON.stringify(posts));
 		return;
 	});
