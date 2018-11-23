@@ -6,17 +6,17 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
   	$scope.myPosts = $resource('/user/' + $routeParams.id + '/posts').query();
   	$scope.newPostTags = [ 'node', 'ruby on rails', 'web dev', 'desktop dev', 'java', 'go', 'javascript', 'python', 'ruby', 'C', 'C++', 'C#', 'swift' ];
   	$scope.selectedTags = [];
+  	$scope.newPost = {};
 
   	$scope.toggleTag = function(tag) {
   		if($scope.selectedTags.includes(tag)) $scope.selectedTags.splice($scope.selectedTags.indexOf(tag), 1);
   		else $scope.selectedTags.push(tag);
-  		console.log($scope.myPosts);
   	}
   	$scope.newPost = function() {
 
   		var newPost = {
-  			title: $scope.title,
-  			content: $scope.content,
+  			title: $scope.newPost.postTitle,
+  			content: $scope.newPost.postContent,
   			tags: $scope.selectedTags
   		}
 

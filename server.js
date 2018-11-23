@@ -338,13 +338,13 @@ app.post('/post/:userId/new', function(req, res) {
 	var userId = req.params.userId;
 
 	var newPost = {
-		createdBy: req.params.id,
+		createdBy: userId,
 		title: req.body.title,
 		content: req.body.content,
 		tags: req.body.tags
 	};
 
-	Post.create({ newPost }, function(err, post) {
+	Post.create(newPost, function(err, post) {
 		if(err) {
 			console.log('Error creating post for user: ' + userId +' : ' + err);
 	  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
@@ -356,7 +356,22 @@ app.post('/post/:userId/new', function(req, res) {
 	});
 });
 
-app.get('/post/:id', function(req, res) {});
+app.get('/post/:id', function(req, res) {
+
+	var postId = req.params.id
+
+	Post.findOne({ _id: postId }, function(err, post) {
+		if(err) {
+			console.log('Error finding post matching id: ' + postId + ' : ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find post: ' + postId));
+	  	return;
+		}
+		console.log('Sucessfully found post: ' + postId);
+		res.status(200).send(JSON.stringify(post));
+		return;
+	});
+
+});
 
 app.post('/post/:id/update', function(req, res) {
 

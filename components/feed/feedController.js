@@ -9,4 +9,8 @@ convert.controller('feedController', ['$scope', '$resource', '$rootScope', '$htt
   		console.log(text);
   	}
 
+  	$scope.open = function(postId) {
+  		$location.path('/post/' + postId + '/view');
+  	}
+
   }]);

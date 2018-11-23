@@ -7,9 +7,8 @@
 			<!-- Add ng-style to each tag -->
 			<span ng-repeat="tag in newPostTags" ng-click="toggleTag(tag)">{{tag}}</span>
 		</div>
-
-		<input type="text" name="title" placeholder="title" ng-model="title">
-		<input type="text" name="content" placeholder="content" ng-model="content">
+		<input type="text" name="" placeholder="title" ng-model="newPost.postTitle">
+		<input type="text" name="" placeholder="content" ng-model="newPost.postContent">
 		<input type="button" name="post" value="+ post" ng-click="newPost()">
 	</div>
 	<!-- ALL MY POSTS -->

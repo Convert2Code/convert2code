@@ -8,10 +8,10 @@
 	<!-- RAILS CONTAINER -->
 	<div class="w-100 ba bg-blue">
 
-		<div ng-repeat="post in posts">
+		<a ng-repeat="post in posts" class="db" ng-click="open(post._id)">
 			<span>{{post.title}}</span>
 			<span>{{post.content}}</span>
-		</div>
+		</a >
 
 	</div>
 
