@@ -1,11 +1,22 @@
 <div class="w-100 mt3">
 	<!-- RAILS CONTAINER -->
-	<div class="w-100 ba bg-blue">
+	<!-- TODO: ADD BORDERS IF GOOD FIT -->
+	<div class="w-100">
 
-		<a ng-repeat="post in posts" class="db" ng-click="open(post._id)">
-			<span>{{post.title}}</span>
-			<span>{{post.content}}</span>
-		</a >
+		<div class="card shadow-4 mt2 mb2" ng-repeat="post in posts">
+			<a class="db" ng-click="open(post._id)">
+				<h1 class="ma0 pt2 pl2">{{post.title}}</h1>
+			</a>
+			<p class="pa0 pt3 pl2">
+				<span class="pl2 pr2 br3 bg-light-red mr1 ml1 white pointer" ng-repeat="tag in post.tags">{{tag}}</span>
+			</p>
+			<!-- Still Need -->
+			<p class="pt3 pl2">{{post.content}}</p>
+
+			<div class="pt2 pl2">
+				Save | Like
+			</div>
+		</div>
 
 	</div>
 </div>

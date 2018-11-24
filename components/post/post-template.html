@@ -8,7 +8,7 @@
 			<span ng-repeat="tag in newPostTags" ng-click="toggleTag(tag)">{{tag}}</span>
 		</div>
 		<input type="text" name="" placeholder="title" ng-model="newPost.postTitle">
-		<input type="text" name="" placeholder="content" ng-model="newPost.postContent">
+		<textarea name="" placeholder="content" ng-model="newPost.postContent"></textarea>
 		<input type="button" name="post" value="+ post" ng-click="newPost()">
 	</div>
 	<!-- ALL MY POSTS -->

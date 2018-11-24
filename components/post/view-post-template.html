@@ -1,12 +1,18 @@
-<div class="w-100 bg-blue">
-	<h1>{{post.title}}</h1>
-	<!-- WRITE NEW POST -->
-	<div>
-		<span ng-repeat="tag in post.tags">{{tag}}</span>
+<div class="w-100">
+	<div class="center bg-c2c-blue">
+		<div class="w-50 center">
+			<div class="pa3 pl0">
+				<h1 class="ma0 white">{{post.title}}</h1>
+			</div>
+			<div>
+				<span ng-repeat="tag in post.tags">{{tag}}</span>
+			</div>
+		</div>
 	</div>
 
-	<div>
-		{{post.content}}
+	<div class="w-50 center">
+		<div>
+			{{post.content}}
+		</div>
 	</div>
-
 </div>
