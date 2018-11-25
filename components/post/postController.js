@@ -5,11 +5,15 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
     var converter = new showdown.Converter();
 
   	$scope.myPosts = $resource('/user/' + $routeParams.id + '/posts').query();
+    $scope.markdownPreview = false;
   	$scope.newPostTags = [ 'node', 'ruby on rails', 'web dev', 'desktop dev', 'java', 'go', 'javascript', 'python', 'ruby', 'C', 'C++', 'C#', 'swift' ];
   	$scope.selectedTags = [];
   	$scope.newPost = {};
 
-    $scope.preview = function() { document.getElementById('target').innerHTML = converter.makeHtml($scope.newPost.postContent); }
+    $scope.preview = function() {
+      document.getElementById('preview').innerHTML = converter.makeHtml($scope.newPost.postContent);
+      $scope.markdownPreview = !$scope.markdownPreview;
+    }
   	$scope.toggleTag = function(tag) {
   		if($scope.selectedTags.includes(tag)) $scope.selectedTags.splice($scope.selectedTags.indexOf(tag), 1);
   		else $scope.selectedTags.push(tag);

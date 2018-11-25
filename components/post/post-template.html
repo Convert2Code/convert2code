@@ -8,16 +8,18 @@
 		<div>
 			<!-- Add ng-style to each tag -->
 			<div class="dib pl2 pr2 br3 bg-light-red ma1 white pointer ba b--light-red hover-bg-white hover-light-red bg-animate" ng-repeat="tag in newPostTags" ng-click="toggleTag(tag)" ng-class=" selectedTags.includes(tag) ? 'bg-white light-red' : 'bg-light-red white' ">{{tag}}</div>
+			<div class="dib pl2 pr2 br3 bg-light-red ma1 white pointer ba b--light-red hover-bg-white hover-light-red bg-animate">+ tag</div>
 		</div>
 		<div class="mt2 tc">
-			<textarea name="" placeholder="content" ng-model="newPost.postContent" class="w-100 db mb2"></textarea>
+			<!-- TODO: Add markdown explainer with examples in this field... -->
+			<textarea name="" placeholder="content" ng-model="newPost.postContent" class="w-100 db mb2" ng-show="!markdownPreview"></textarea>
+			<div id="preview" ng-show="markdownPreview" class="tl"></div>
 			<div class="w-100 tl">
 				<input type="button" name="post" value="+ post" ng-click="newPost()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate">
-				<input type="button" name="preview" value="preview" ng-click="preview()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate">
+				<input type="button" name="previewToggle" value="{{markdownPreview ? 'edit' : 'preview'}}" ng-click="preview()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate">
 			</div>
 		</div>
 	</div>
-	<div id="target"></div>
 	<!-- ALL MY POSTS -->
 	<!-- NEED A PLACE FOR SAVED POSTS TOO -->
 	<div class="w-90 center">
@@ -27,7 +29,7 @@
 			<!-- <span>{{post.content}}</span> -->
 			<div class="dib">
 				<i class="fa fa-pencil fa-1x fa-fw c2c-orange pointer tooltip"></i>
-				<i class="fa fa-eye fa-1x fa-fw c2c-orange pointer"></i>
+				<a href="/#!/post/{{post._id}}/view"><i class="fa fa-eye fa-1x fa-fw c2c-orange pointer"></i></a>
 				<i class="fa fa-trash-o fa-1x fa-fw red pointer"></i>
 			</div>
 		</div>

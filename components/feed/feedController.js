@@ -8,9 +8,4 @@ convert.controller('feedController', ['$scope', '$resource', '$rootScope', '$htt
   	$scope.search = function(text) {
   		console.log(text);
   	}
-
-  	$scope.open = function(postId) {
-  		$location.path('/post/' + postId + '/view');
-  	}
-
   }]);

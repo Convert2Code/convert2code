@@ -33,6 +33,7 @@ var Group = require('./schema/group.js');
 
 var User = require('./schema/user.js');
 var Post = require('./schema/post.js');
+var Tag = require('./schema/tag.js');
 
 /************************
  *
@@ -337,6 +338,8 @@ app.post('/post/:userId/new', function(req, res) {
 
 	var userId = req.params.userId;
 
+	// TODO: Incoporate Tag model and increment tag relations for each tag
+
 	var newPost = {
 		createdBy: userId,
 		title: req.body.title,
@@ -395,6 +398,52 @@ app.post('/post/:id/update', function(req, res) {
 });
 
 app.post('/post/:id/delete', function(req, res) {});
+
+/************************
+*
+*				 TAG
+*
+************************/
+
+app.get('/tags', function(req, res) {
+	Tag.find({}, function(err, tags) {
+		if(err) {
+			console.log('Error finding tags: ' + err);
+		  res.status(400).send(JSON.stringify('Unable to find tags'));
+		  return;
+		}
+		console.log('Sucessfully found information for all tags');
+		res.status(200).send(JSON.stringify(tags));
+		return;
+	});
+});
+
+app.post('/tag/:userId/new', function(req, res) {
+
+	var userId = req.params.userId;
+
+	var newTag = {
+		tag: req.body.tag,
+		createdBy: userId,
+		backgroundColor: req.body.backgroundColor,
+		fontColor: req.body.fontColor
+	};
+
+	Tag.create(newTag, function(err, tag) {
+		if(err) {
+			console.log('Error creating tag created by user: ' + userId +' : ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to create tag by: ' + userId));
+	  	return;
+		}
+		console.log('Sucessfully created tag by: ' + userId);
+		res.status(200).send(JSON.stringify(tag));
+		return;
+	});
+});
+
+app.get('/tag/:id', function(req, res) {});
+app.post('/tag/:id/update', function(req, res) {});
+app.post('/tag/:id/delete', function(req, res) {});
 
 var server = app.listen(80, function () {
     var port = server.address().port;
