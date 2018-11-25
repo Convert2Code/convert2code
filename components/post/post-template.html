@@ -1,22 +1,33 @@
-<div class="w-100 bg-blue">
-	<h1>New Post</h1>
+<div class="w-100">
+	<h1 class="w-90 center ma0">
+		<input type="text" name="" placeholder="Write a New Post" ng-model="newPost.postTitle" class="w-100 pa2 br3 f3 mb2">
+	</h1>
 	<!-- WRITE NEW POST -->
-	<div>
+	<div class="w-90 center">
 
 		<div>
 			<!-- Add ng-style to each tag -->
-			<span ng-repeat="tag in newPostTags" ng-click="toggleTag(tag)">{{tag}}</span>
+			<div class="dib pl2 pr2 br3 bg-light-red ma1 white pointer ba b--light-red hover-bg-white hover-light-red bg-animate" ng-repeat="tag in newPostTags" ng-click="toggleTag(tag)" ng-class=" selectedTags.includes(tag) ? 'bg-white light-red' : 'bg-light-red white' ">{{tag}}</div>
 		</div>
-		<input type="text" name="" placeholder="title" ng-model="newPost.postTitle">
-		<textarea name="" placeholder="content" ng-model="newPost.postContent"></textarea>
-		<input type="button" name="post" value="+ post" ng-click="newPost()">
+		<div class="mt2 tc">
+			<textarea name="" placeholder="content" ng-model="newPost.postContent" class="w-100 db mb2"></textarea>
+			<div class="w-100 tl">
+				<input type="button" name="post" value="+ post" ng-click="newPost()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate">
+			</div>
+		</div>
 	</div>
 	<!-- ALL MY POSTS -->
-	<div>
+	<!-- NEED A PLACE FOR SAVED POSTS TOO -->
+	<div class="w-90 center">
 
-		<div ng-repeat="post in myPosts">
+		<div ng-repeat="post in myPosts" class="mt2 mb2 pa3 ba br3 b-c2c-orange">
 			<span>{{post.title}}</span>
-			<span>{{post.content}}</span>
+			<!-- <span>{{post.content}}</span> -->
+			<div class="dib">
+				<i class="fa fa-pencil fa-1x fa-fw c2c-orange pointer tooltip"></i>
+				<i class="fa fa-eye fa-1x fa-fw c2c-orange pointer"></i>
+				<i class="fa fa-trash-o fa-1x fa-fw red pointer"></i>
+			</div>
 		</div>
 
 	</div>

@@ -16,6 +16,6 @@
 		<span ng-click="toggle = 'feed' " class="pa2 ml2 no-outline pointer bg-c2c-orange black f5 fw4 br3">feed</span>
 	</div>
 
-	<div ng-include="'components/post/post-template.html'" ng-controller="postController" ng-show="toggle === 'posts'"></div>
+	<div ng-include="'components/post/post-template.html'" ng-controller="postController" ng-show="toggle === 'posts'" class="mt3"></div>
 	<div ng-include="'components/feed/feed-template.html'" ng-controller="feedController" ng-show="toggle === 'feed'"></div>
 </div>
