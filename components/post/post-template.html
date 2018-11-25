@@ -13,9 +13,11 @@
 			<textarea name="" placeholder="content" ng-model="newPost.postContent" class="w-100 db mb2"></textarea>
 			<div class="w-100 tl">
 				<input type="button" name="post" value="+ post" ng-click="newPost()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate">
+				<input type="button" name="preview" value="preview" ng-click="preview()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate">
 			</div>
 		</div>
 	</div>
+	<div id="target"></div>
 	<!-- ALL MY POSTS -->
 	<!-- NEED A PLACE FOR SAVED POSTS TOO -->
 	<div class="w-90 center">

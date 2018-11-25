@@ -226,6 +226,7 @@
 	.no-outline { outline: none; }
 	.no-border { border: none; }
 	.b-c2c-orange { border-style: solid; border-width: 2px; border-color: #ffcc33; }
+	.b-c2c-blue { border-style: solid; border-width: 2px; border-color: #33ccff; }
 
 	.border-5 { border: 5px solid #f9f9f9; }
 
