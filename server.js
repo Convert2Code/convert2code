@@ -16,7 +16,7 @@
  ************************/
 
 var mongoose = require('mongoose');
-var session = require('client-sessions');
+var session = require('express-session');
 var bodyParser = require('body-parser');
 var async = require('async');
 var express = require('express');
@@ -47,6 +47,7 @@ var BCRYPT_SALT_ROUNDS = 12;
 
 mongoose.connect('mongodb://localhost/convert2code');
 
+app.use(session({ secret: 'thesuperduperestsecretofalltime' }));
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 
@@ -58,11 +59,8 @@ app.use(bodyParser.json());
 
 // Build out stub
 var requireLogin = function(req, res, next) {
-	console.log(req);
-	console.log(res);
-	console.log(next);
   if (!req.session._id) {
-    res.redirect('/login');
+  	console.log('REDIRECT');
   } else {
     next();
   }
@@ -187,16 +185,16 @@ app.post('/user/login', function(req, res) {
 
 		bcrypt.compare(password, user.password, function(_err, samePassword) {
   		if(samePassword) {
-  			console.log('Sucessfully logged in user: ' + user.firstName + ' ' + user.lastName);
+  			console.log('Sucessfully logged in user: ' + user.username + ' ' + user._id);
 
   			// Update lastSignInAt
+  			user.lastSignInAt = new Date();
+  			user.save();
 
-  			/* REINCORPORATE BCRYPT
+  			/* REINCORPORATE BCRYPT */
 	  		req.session._id = user._id;
-		    req.session.username = username;
-		    req.session.firstName = user.firstName;
-		    req.session.lastName = user.lastName;
-		    */
+	    	req.session.username = user.username;
+	    	// Add notifications to session?
 
 	  		res.status(200).send(JSON.stringify(user));
 				return;
@@ -207,6 +205,18 @@ app.post('/user/login', function(req, res) {
 				return;
   		}
   	});
+	});
+});
+
+app.post('/logout', function(req, res) {
+	req.session.destroy(function(err) {
+		if(err) {
+			console.log('Error destroying session: ' + err);
+		  res.status(400).send(JSON.stringify('Unable to destroy session'));
+		  return;
+		}
+		console.log('Logged user out');
+		res.status(200).send(JSON.stringify('Logged Out'));
 	});
 });
 
@@ -231,6 +241,11 @@ app.post('/user/new', function(req, res) {
 			  res.status(400).send(JSON.stringify('Unable to create new user'));
 			  return;
 			}
+
+			req.session._id = user._id;
+	    req.session.username = user.username;
+	    // Add notifications to session?
+
 			console.log('New user created: ' + user.username);
 		  res.status(200).send(JSON.stringify(user));
 		  return
@@ -303,12 +318,15 @@ app.get('/user/:id/posts', function(req, res) {
 
 	var userId = req.params.id;
 
-	Post.find({ createdBy: userId }, function(err, posts) {
+	Post.find({ "createdBy.userId": userId }, function(err, posts) {
 		if(err) {
 			console.log('Error finding posts for user: ' + userId +' : ' + err);
 	  	res.status(400).send(JSON.stringify('Unable to find posts for: ' + userId));
 	  	return;
 		}
+
+		console.log(posts);
+
 		console.log('Sucessfully retrieved posts for: ' + userId);
 		res.status(200).send(JSON.stringify(posts));
 		return;
@@ -339,9 +357,10 @@ app.post('/post/:userId/new', function(req, res) {
 	var userId = req.params.userId;
 
 	// TODO: Incoporate Tag model and increment tag relations for each tag
+	// Assume we get past check, username in session is equal to current user
 
 	var newPost = {
-		createdBy: userId,
+		createdBy: { userId: userId, username: req.session.username },
 		title: req.body.title,
 		content: req.body.content,
 		tags: req.body.tags

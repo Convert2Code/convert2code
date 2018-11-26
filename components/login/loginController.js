@@ -5,7 +5,7 @@ convert.controller('loginController', ['$scope', '$resource', '$rootScope', '$ht
 
     $scope.login = function() {
 
-      user = {
+      var user = {
         username: $scope.username,
         password: $scope.password
       }

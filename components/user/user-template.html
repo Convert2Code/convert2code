@@ -19,3 +19,11 @@
 	<div ng-include="'components/post/post-template.html'" ng-controller="postController" ng-show="toggle === 'posts'" class="mt3"></div>
 	<div ng-include="'components/feed/feed-template.html'" ng-controller="feedController" ng-show="toggle === 'feed'"></div>
 </div>
+
+<div class="dib shadow-4 ma2 user-container v-top">
+	<h3 class="w-100 tc">you</h3>
+	<div class="f6 fw7">
+		<a ng-click="logout()" class="pa2 pointer hover-c2c-orange">logout</a>
+	</div>
+	<!-- Only display most popular -->
+</div>

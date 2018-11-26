@@ -7,13 +7,14 @@
 			<a href="/#!/post/{{post._id}}/view" class="db">
 				<h1 class="ma0 pt3 pl2 c2c-orange-underline pointer">{{post.title}}</h1>
 			</a>
+			<p class="pt3 pl2 ma0 pb0"><span class="b">by:</span> {{post.createdBy.username}}</p>
 			<p class="pa0 pt3 pl2">
 				<span class="pl2 pr2 br3 bg-light-red mr1 ml1 white pointer" ng-repeat="tag in post.tags">{{tag}}</span>
 			</p>
-			<!-- Still Need -->
-			<p class="pt3 pl2">{{post.content}}</p>
+			<!-- Should add beginning of content? -->
+			<!-- <p class="pt3 pl2">{{post.content}}</p> -->
 
-			<div class="pa2 tr">
+			<div class="mt2 pa2 tr">
 				<input type="button" name="save" value="save" ng-click="" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt1 pb1 br2 bg-animate">
 				<input type="button" name="like" value="like" ng-click="" class="bg-c2c-blue white b-c2c-blue hover-bg-white hover-c2c-blue-color pointer pl3 pr3 pt1 pb1 br2 bg-animate">
 			</div>

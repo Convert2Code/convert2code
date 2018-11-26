@@ -6,7 +6,10 @@ var mongoose = require('mongoose');
 
 var postSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
-    createdBy: mongoose.Schema.Types.ObjectId,
+    createdBy: {
+    	userId: mongoose.Schema.Types.ObjectId,
+    	username: String
+    },
     title: String,
     content: String,
     tags: [String]

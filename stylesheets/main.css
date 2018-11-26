@@ -264,6 +264,12 @@
 		overflow: scroll;
 	}
 
+	.user-container {
+		height: 200px;
+		width: 300px;
+		overflow: scroll;
+	}
+
 	.fll { float: left; }
 	.flr { float: right; }
 

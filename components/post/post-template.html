@@ -8,7 +8,13 @@
 		<div>
 			<!-- Add ng-style to each tag -->
 			<div class="dib pl2 pr2 br3 bg-light-red ma1 white pointer ba b--light-red hover-bg-white hover-light-red bg-animate" ng-repeat="tag in newPostTags" ng-click="toggleTag(tag)" ng-class=" selectedTags.includes(tag) ? 'bg-white light-red' : 'bg-light-red white' ">{{tag}}</div>
+
 			<div class="dib pl2 pr2 br3 bg-light-red ma1 white pointer ba b--light-red hover-bg-white hover-light-red bg-animate">+ tag</div>
+			<span>
+				<input type="text" placeholder="bg-color(hex)">
+				<input type="text" placeholder="font-color(hex)">
+				<input type="text" placeholder="tag">
+			</span>
 		</div>
 		<div class="mt2 tc">
 			<!-- TODO: Add markdown explainer with examples in this field... -->
