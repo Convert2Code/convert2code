@@ -8,7 +8,8 @@ var postSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     createdBy: {
     	userId: mongoose.Schema.Types.ObjectId,
-    	username: String
+    	username: String,
+    	profileImage: String
     },
     title: String,
     content: String,

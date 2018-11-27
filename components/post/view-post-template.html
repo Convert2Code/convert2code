@@ -2,10 +2,18 @@
 	<div class="center bg-c2c-blue">
 		<div class="w-50 center">
 			<div class="pa3 pl0">
-				<h1 class="ma0 white">{{post.title}}</h1>
-			</div>
-			<div>
-				<span ng-repeat="tag in post.tags">{{tag}}</span>
+				<h1 class="ma0 white f1 montserrat v-top">{{post.title}}</h1>
+				<span>
+					<div class="dib circle major-profile-pic v-top">
+						<img src="public/images/{{post.createdBy.profileImage}}">
+					</div>
+					<div class="dib pa3">
+						<span ng-repeat="tag in post.tags" class="bg-black white pa2 ml1 mr1 br3">{{tag}}</span>
+						<div class="pt3 ml1">
+							{{post.createdBy.username}} - {{post.createdAt}}
+						</div>
+					</div>
+				</span>
 			</div>
 		</div>
 	</div>

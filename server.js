@@ -21,6 +21,9 @@ var bodyParser = require('body-parser');
 var async = require('async');
 var express = require('express');
 var bcrypt = require('bcrypt');
+var fs = require('fs');
+var multer = require('multer');
+var processFormBody = multer({storage: multer.memoryStorage()}).single('profilepic');
 
 /************************
  *
@@ -333,6 +336,44 @@ app.get('/user/:id/posts', function(req, res) {
 	});
 });
 
+app.post('/user/:id/setprofilepic', function(req, res) {
+
+	var userId = req.params.id;
+
+	User.findOne({ _id: userId }, function(err, user) {
+		if(err) {
+			console.log('Error finding user while setting profile pic: ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find user while setting profile pic'));
+	  	return;
+		}
+
+		processFormBody(req, res, function (err) {
+	    if (err || !req.file) {
+	      console.error('Error uploading images: ' + err);
+	      res.status(400).send(JSON.stringify(err));
+	      return;
+	    }
+
+      var timestamp = new Date().valueOf();
+      var filename = 'U' +  String(timestamp) + req.file.originalname;
+
+      fs.writeFile("./public/images/" + filename, req.file.buffer, function (err) {
+      	if(err) {
+      		console.log('Error finding posts: ' + err);
+		  		res.status(400).send(JSON.stringify('Unable to find posts'));
+		  		return;
+      	}
+      	user.profileImage = filename;
+      	user.save();
+    	});
+
+			console.log('Sucessfully set the profile image for: ' + user.username);
+			res.status(200).send(JSON.stringify(user));
+			return;
+		});
+	});
+});
+
 /************************
 *
 *				 POST
@@ -359,22 +400,31 @@ app.post('/post/:userId/new', function(req, res) {
 	// TODO: Incoporate Tag model and increment tag relations for each tag
 	// Assume we get past check, username in session is equal to current user
 
-	var newPost = {
-		createdBy: { userId: userId, username: req.session.username },
-		title: req.body.title,
-		content: req.body.content,
-		tags: req.body.tags
-	};
-
-	Post.create(newPost, function(err, post) {
+	User.findOne({ _id: userId }, function(err, user) {
 		if(err) {
-			console.log('Error creating post for user: ' + userId +' : ' + err);
-	  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
+			console.log('Error finding user while posting: ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find user while posting'));
 	  	return;
 		}
-		console.log('Sucessfully posted for: ' + userId);
-		res.status(200).send(JSON.stringify(post));
-		return;
+
+		var newPost = {
+			createdBy: { userId: userId, username: user.username, profileImage: user.profileImage },
+			title: req.body.title,
+			content: req.body.content,
+			tags: req.body.tags
+		};
+
+		Post.create(newPost, function(err, post) {
+			if(err) {
+				console.log('Error creating post for user: ' + userId +' : ' + err);
+		  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
+		  	return;
+			}
+			console.log('Sucessfully posted for: ' + userId);
+			res.status(200).send(JSON.stringify(post));
+			return;
+		});
+
 	});
 });
 

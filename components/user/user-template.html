@@ -21,9 +21,20 @@
 </div>
 
 <div class="dib shadow-4 ma2 user-container v-top">
-	<h3 class="w-100 tc">you</h3>
+	<h3 class="w-100 ma0 pa2 tc">{{user.username}}</h3>
+	<div class="circle major-profile-pic center">
+		<img src="public/images/{{user.profileImage}}" class="">
+	</div>
 	<div class="f6 fw7">
 		<a ng-click="logout()" class="pa2 pointer hover-c2c-orange">logout</a>
+		<input type="file" accept="image/*"  onchange="angular.element(this).scope().inputFileNameChanged(this)">
+		<input type="button" value="upload" ng-click="uploadPhoto()">
+	</div>
+
+	<div>
+		<span>interests</span>
+		<span>saved</span>
+		<span>following</span>
 	</div>
 	<!-- Only display most popular -->
 </div>

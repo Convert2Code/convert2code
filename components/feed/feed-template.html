@@ -7,7 +7,17 @@
 			<a href="/#!/post/{{post._id}}/view" class="db">
 				<h1 class="ma0 pt3 pl2 c2c-orange-underline pointer">{{post.title}}</h1>
 			</a>
-			<p class="pt3 pl2 ma0 pb0"><span class="b">by:</span> {{post.createdBy.username}}</p>
+			<div class="pt1">
+				<div class="dib circle minor-profile-pic v-top">
+					<img src="public/images/{{post.createdBy.profileImage}}">
+				</div>
+				<p class="dib pt1 pl2 ma0 pb0 v-top">
+					<span class="b">by:</span> {{post.createdBy.username}}
+					<br>
+					<span class="gray">{{post.createdAt}}</span>
+				</p>
+			</div>
+
 			<p class="pa0 pt3 pl2">
 				<span class="pl2 pr2 br3 bg-light-red mr1 ml1 white pointer" ng-repeat="tag in post.tags">{{tag}}</span>
 			</p>
