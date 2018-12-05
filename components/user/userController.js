@@ -6,7 +6,7 @@ convert.controller('userController', ['$scope', '$resource', '$rootScope', '$htt
   	var userId = $routeParams.id
 
     $scope.toggle = 'feed';
-    $scope.tags = [ 'node', 'ruby on rails', 'web dev', 'desktop dev', 'java', 'go', 'javascript', 'python', 'ruby', 'C', 'C++', 'C#', 'swift' ];
+    $scope.tags = $resource('/tags').query();
     $scope.user = $resource('/user/' + userId).get();
 
     $scope.logout = function() {

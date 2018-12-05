@@ -327,7 +327,6 @@ app.get('/user/:id/posts', function(req, res) {
 	  	res.status(400).send(JSON.stringify('Unable to find posts for: ' + userId));
 	  	return;
 		}
-
 		console.log(posts);
 
 		console.log('Sucessfully retrieved posts for: ' + userId);
@@ -407,24 +406,33 @@ app.post('/post/:userId/new', function(req, res) {
 	  	return;
 		}
 
-		var newPost = {
-			createdBy: { userId: userId, username: user.username, profileImage: user.profileImage },
-			title: req.body.title,
-			content: req.body.content,
-			tags: req.body.tags
-		};
+		Tag.find({ _id: { $in: req.body.tags } }, function(err, tags) {
 
-		Post.create(newPost, function(err, post) {
 			if(err) {
-				console.log('Error creating post for user: ' + userId +' : ' + err);
-		  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
+				console.log('Error finding tags while posting: ' + err);
+		  	res.status(400).send(JSON.stringify('Unable to find tags while posting'));
 		  	return;
 			}
-			console.log('Sucessfully posted for: ' + userId);
-			res.status(200).send(JSON.stringify(post));
-			return;
-		});
 
+			var newPost = {
+				createdBy: { userId: userId, username: user.username, profileImage: user.profileImage },
+				title: req.body.title,
+				content: req.body.content,
+				tags: tags
+			};
+
+			Post.create(newPost, function(err, post) {
+				if(err) {
+					console.log('Error creating post for user: ' + userId +' : ' + err);
+			  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
+			  	return;
+				}
+				console.log(post);
+				console.log('Sucessfully posted for: ' + userId);
+				res.status(200).send(JSON.stringify(post));
+				return;
+			});
+		});
 	});
 });
 
@@ -438,11 +446,11 @@ app.get('/post/:id', function(req, res) {
 	  	res.status(400).send(JSON.stringify('Unable to find post: ' + postId));
 	  	return;
 		}
-		console.log('Sucessfully found post: ' + postId);
+
+		console.log('Sucessfully found post tags: ' + postId);
 		res.status(200).send(JSON.stringify(post));
 		return;
 	});
-
 });
 
 app.post('/post/:id/update', function(req, res) {
@@ -470,7 +478,7 @@ app.post('/post/:id/delete', function(req, res) {});
 
 /************************
 *
-*				 TAG
+*				 	TAG
 *
 ************************/
 

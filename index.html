@@ -30,9 +30,11 @@
 		<script src="components/feed/feedController.js"></script>
 		<script src="components/post/postController.js"></script>
 		<script src="components/post/viewPostController.js"></script>
+		<script src="components/tag/tagController.js"></script>
+		<script src="components/tag/tagViewController.js"></script>
 
 		<link rel="icon" href="images/WSGraphic.png">
-		<title>Convert to Code</title>
+		<title>Convert to Code | Labs</title>
 	</head>
-	<body ng-view></body>
+	<body ng-view ng-class="main.openModal ? 'overflow-hidden' : '' "></body>
 </html>

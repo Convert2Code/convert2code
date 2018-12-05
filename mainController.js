@@ -46,4 +46,7 @@ convert.config(['$routeProvider',
     }]);
 
 convert.controller('mainController', ['$scope', '$resource', '$rootScope', '$http', '$location',
-  function ($scope, $resource, $rootScope, $http, $location) { }]);
+  function ($scope, $resource, $rootScope, $http, $location) {
+    $scope.main = {}
+    $scope.main.openModal = false;
+  }]);

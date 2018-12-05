@@ -6,18 +6,36 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
 
   	$scope.myPosts = $resource('/user/' + $routeParams.id + '/posts').query();
     $scope.markdownPreview = false;
-  	$scope.newPostTags = [ 'node', 'ruby on rails', 'web dev', 'desktop dev', 'java', 'go', 'javascript', 'python', 'ruby', 'C', 'C++', 'C#', 'swift' ];
+  	$scope.newPostTags = $resource('/tags').query(); // [ 'node', 'ruby on rails', 'web dev', 'desktop dev', 'java', 'go', 'javascript', 'python', 'ruby', 'C', 'C++', 'C#', 'swift' ];
   	$scope.selectedTags = [];
   	$scope.newPost = {};
+    $scope.newTag = {};
 
     $scope.preview = function() {
       document.getElementById('preview').innerHTML = converter.makeHtml($scope.newPost.postContent);
       $scope.markdownPreview = !$scope.markdownPreview;
     }
   	$scope.toggleTag = function(tag) {
+      console.log(tag);
   		if($scope.selectedTags.includes(tag)) $scope.selectedTags.splice($scope.selectedTags.indexOf(tag), 1);
   		else $scope.selectedTags.push(tag);
   	}
+    $scope.createTag = function() {
+
+      var tag = {
+        tag: $scope.newTag.newTagText,
+        backgroundColor: 'rgb(' + $scope.newTag.newTagRed + ',' + $scope.newTag.newTagGreen + ',' + $scope.newTag.newTagBlue + ')',
+        fontColor: 'rgb(0, 0, 0)'
+      }
+
+      $resource('/tag/' + $routeParams.id + '/new').save(tag, function(tag) {
+        console.log('Tag was successfully created!');
+        $scope.main.openModal = false;
+      }, function(err) {
+        console.log('There was an error while creating this new tag!');
+      });
+
+    }
   	$scope.newPost = function() {
 
   		var newPost = {
