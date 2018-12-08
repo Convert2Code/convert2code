@@ -422,7 +422,6 @@ app.post('/post/:userId/new', function(req, res) {
 
 	var userId = req.params.userId;
 
-	// TODO: Incoporate Tag model and increment tag relations for each tag
 	// Assume we get past check, username in session is equal to current user
 
 	User.findOne({ _id: userId }, function(err, user) {
@@ -445,10 +444,38 @@ app.post('/post/:userId/new', function(req, res) {
 		  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
 		  	return;
 			}
-			console.log(post);
-			console.log('Sucessfully posted for: ' + userId);
-			res.status(200).send(JSON.stringify(post));
-			return;
+
+			Tag.find({ _id: { $in: post.tags } }, function(err, tags) {
+				if(err) {
+					console.log('Error incrementing tag relations while posting for post: ' + post._id +' : ' + err);
+			  	res.status(400).send(JSON.stringify(post)); // TODO: Fix status code for this
+			  	return;
+				}
+
+				if(tags.length === 0) {
+					console.log(post);
+					console.log('Sucessfully posted for: ' + userId);
+					res.status(200).send(JSON.stringify(post));
+					return;
+				}
+
+				var remaining = tags.length;
+
+				tags.forEach(function(tag) {
+
+					tag.relations++;
+					tag.save();
+
+					remaining -= 1;
+
+					if(remaining === 0) {
+						console.log(post);
+						console.log('Sucessfully posted for: ' + userId);
+						res.status(200).send(JSON.stringify(post));
+						return;
+					}
+				});
+			});
 		});
 	});
 });

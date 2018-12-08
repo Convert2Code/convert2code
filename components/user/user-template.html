@@ -1,6 +1,5 @@
 <!-- <h1 class="ma0">HI {{user.username}}</h1> -->
-
-<div class="dib shadow-4 ma2 tag-container v-top">
+<div class="dib shadow-4 ma2 tag-container v-top bg-white">
 	<h3 class="w-100 tc">interests</h3>
 	<div class="f6 fw7">
 		<a href="/#!/tag/{{tag._id}}"  ng-repeat="tag in tags" class="db pa2 pointer hover-c2c-orange">#{{tag.tag}}</a>
@@ -9,7 +8,7 @@
 	<!-- Only display most popular -->
 </div>
 
-<div class="dib w-50 v-top">
+<div class="dib w-50 v-top bg-white">
 	<input type="text" placeholder="search" class="w-100 pa3 ma2 ">
 	<div class="w-100 mt2 mb2 tc">
 		<span ng-click="toggle = 'posts' " class="pa2 mr2 no-outline pointer bg-c2c-orange black f5 fw4 br3">my posts</span>
@@ -20,21 +19,24 @@
 	<div ng-include="'components/feed/feed-template.html'" ng-controller="feedController" ng-show="toggle === 'feed'"></div>
 </div>
 
-<div class="dib shadow-4 ma2 user-container v-top">
+<div class="dib shadow-4 ma2 v-top bg-white">
 	<h3 class="w-100 ma0 pa2 tc">{{user.username}}</h3>
 	<div class="circle major-profile-pic center">
 		<img src="public/images/{{user.profileImage}}" class="">
 	</div>
-	<div class="f6 fw7">
-		<a ng-click="logout()" class="pa2 pointer hover-c2c-orange">logout</a>
-		<input type="file" accept="image/*"  onchange="angular.element(this).scope().inputFileNameChanged(this)">
-		<input type="button" value="upload" ng-click="uploadPhoto()">
+	<div class="f6 fw7 mt1">
+		<div class="">
+			<input type="file" accept="image/*"  onchange="angular.element(this).scope().inputFileNameChanged(this)" class="no-outline bg-c2c-blue white b-c2c-blue hover-bg-white hover-c2c-blue-color pointer pl3 pr3 pt1 pb1 br2 bg-animate">
+			<input type="button" value="upload" ng-click="uploadPhoto()" class="w-100 db bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt1 pb1 br2 bg-animate no-outline">
+		</div>
+		<a ng-click="logout()" class="db mt1 pa2 pointer hover-c2c-orange tc">logout</a>
 	</div>
-
+<!--
 	<div>
 		<span>interests</span>
 		<span>saved</span>
 		<span>following</span>
 	</div>
+-->
 	<!-- Only display most popular -->
 </div>
