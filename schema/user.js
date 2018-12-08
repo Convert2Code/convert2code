@@ -12,7 +12,8 @@ var userSchema = new mongoose.Schema({
     profileImage: String,
     interests: [String],
     notifications: [String],
-    posts: [mongoose.Schema.Types.ObjectId]
+    posts: [mongoose.Schema.Types.ObjectId],
+    hearted: [mongoose.Schema.Types.ObjectId]
 });
 
 var User = mongoose.model('User', userSchema);

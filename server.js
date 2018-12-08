@@ -335,6 +335,38 @@ app.get('/user/:id/posts', function(req, res) {
 	});
 });
 
+app.post('/user/:userId/like/:postId', function(req, res) {
+
+	var userId = req.params.userId;
+	var postId = req.params.postId;
+
+	User.findOne({  }, function(err, user) {
+		if(err) {
+			console.log('Error finding user: ' + userId + ' while liking post: ' + postId + ' : ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find user while liking post'));
+	  	return;
+		}
+
+		Post.findOne({  }, function(err, post) {
+			if(err) {
+				console.log('Error finding post while liking post: ' + postId + ' : ' + err);
+		  	res.status(400).send(JSON.stringify('Unable to find post while liking post'));
+		  	return;
+			}
+
+			post.hearts++;
+			user.hearted = user.hearted.push(postId);
+
+			post.save();
+			user.save();
+
+			console.log('Sucessfully liked the post: ' + postId);
+			res.status(200).send(JSON.stringify(user));
+			return;
+		});
+	});
+});
+
 app.post('/user/:id/setprofilepic', function(req, res) {
 
 	var userId = req.params.id;
