@@ -1,15 +1,41 @@
 <div class="w-100">
-	<div class="center bg-c2c-blue">
+	<div class="center" ng-style="{ 'background-color': tag.backgroundColor }">
 		<div class="w-50 center">
 			<div class="pa3 pl0">
-				<h1 class="ma0 white">all tags</h1>
+				<h1 class="ma0" ng-style="{ 'color': tag.fontColor }">#{{tag.tag}}</h1>
 			</div>
 		</div>
 	</div>
 
 	<div class="w-50 center">
-		<div ng-repeat="tag in tags">{{tag}}</div>
-		<!-- <div ng-repeat="tag in tags" ng-style="{ 'background-color': tag.backgroundColor; 'color': tag.fontColor; }">{{tag}}</div> -->
+
+		<div class="card shadow-4 mt2 mb2 pl3" ng-repeat="post in posts">
+			<a href="/#!/post/{{post._id}}/view" class="db">
+				<h1 class="ma0 pt3 pl2 c2c-orange-underline pointer">{{post.title}}</h1>
+			</a>
+			<div class="pt1">
+				<div class="dib circle minor-profile-pic v-top">
+					<img src="public/images/{{post.createdBy.profileImage}}">
+				</div>
+				<p class="dib pt1 pl2 ma0 pb0 v-top">
+					<span class="b">by:</span> {{post.createdBy.username}}
+					<br>
+					<span class="gray">{{post.createdAt}}</span>
+				</p>
+			</div>
+
+			<p class="pa0 pt3 pl2">
+				<a href="/#!/tag/{{tag._id}}" class="montserrat pa2 br3 mr1 ml1 fw1 white pointer" ng-repeat="tag in post.tags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">#{{tag.tag}}</a>
+			</p>
+			<!-- Should add beginning of content? -->
+			<!-- <p class="pt3 pl2">{{post.content}}</p> -->
+
+			<div class="mt2 pa2 tr">
+				<input type="button" name="save" value="save" ng-click="" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt1 pb1 br2 bg-animate">
+				<input type="button" name="like" value="like" ng-click="" class="bg-c2c-blue white b-c2c-blue hover-bg-white hover-c2c-blue-color pointer pl3 pr3 pt1 pb1 br2 bg-animate">
+			</div>
+		</div>
+
 	</div>
 
 </div>

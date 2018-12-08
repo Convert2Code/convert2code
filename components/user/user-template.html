@@ -3,8 +3,8 @@
 <div class="dib shadow-4 ma2 tag-container v-top">
 	<h3 class="w-100 tc">interests</h3>
 	<div class="f6 fw7">
-		<div ng-repeat="tag in tags" class="pa2 pointer hover-c2c-orange">{{tag.tag}}</div>
-		<div>see all</div>
+		<a href="/#!/tag/{{tag._id}}"  ng-repeat="tag in tags" class="db pa2 pointer hover-c2c-orange">#{{tag.tag}}</a>
+		<a href="/#!/tags" class="db pa2 pointer hover-c2c-orange">see all</a>
 	</div>
 	<!-- Only display most popular -->
 </div>

@@ -37,8 +37,8 @@ convert.config(['$routeProvider',
         controller: 'tagController'
       }).
       when('/tag/:id', {
-        templateUrl: 'components/tag/view-tag-template.html',
-        controller: 'viewTagController'
+        templateUrl: 'components/tag/tag-view-template.html',
+        controller: 'tagViewController'
       }).
       otherwise({
       	redirectTo: '/'

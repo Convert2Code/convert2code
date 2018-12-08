@@ -546,7 +546,71 @@ app.post('/tag/:userId/new', function(req, res) {
 	});
 });
 
-app.get('/tag/:id', function(req, res) {});
+app.get('/tag/:id', function(req, res) {
+
+	var tagId = req.params.id;
+
+	Tag.findOne({ _id: tagId }, function(err, tag) {
+		if(err) {
+			console.log('Error finding tag: ' + tagid + ' : ' + err);
+		  res.status(400).send(JSON.stringify('Unable to find tag'));
+		  return;
+		}
+		console.log('Sucessfully found information for tag: ' + tagId);
+		res.status(200).send(JSON.stringify(tag));
+		return;
+	});
+});
+
+app.get('/tag/:id/posts', function(req, res) {
+
+	var tagId = req.params.id;
+
+	Tag.find({ _id: tagId }, function(err, tag) {
+		if(err) {
+			console.log('Error finding tag while retrieving posts: ' + tagid + ' : ' + err);
+		  res.status(400).send(JSON.stringify('Unable to find tag while retrieving posts'));
+		  return;
+		}
+
+		Post.find({ tags: tagId }, function(err, posts) {
+			if(err) {
+				console.log('Error finding posts for tag: ' + tagid + ' : ' + err);
+			  res.status(400).send(JSON.stringify('Unable to find posts for specified tag'));
+			  return;
+			}
+
+			if(posts.length === 0) {
+				console.log('Sucessfully found information for all posts');
+				res.status(200).send(JSON.stringify(posts));
+				return;
+			}
+
+			var remaining = posts.length;
+
+			posts.forEach(function(post) {
+				Tag.find({ _id: { $in: post.tags } }, function(err, tags) {
+
+					if(err) {
+						console.log('Error finding tags while posting: ' + err);
+				  	res.status(400).send(JSON.stringify('Unable to find tags while retrieving posts'));
+				  	return;
+					}
+
+					post.tags = tags;
+					remaining -= 1;
+
+					if(remaining === 0) {
+						console.log('Sucessfully found posts for tag: ' + tagId);
+						res.status(200).send(JSON.stringify(posts));
+						return;
+					}
+				});
+			});
+		});
+	});
+});
+
 app.post('/tag/:id/update', function(req, res) {});
 app.post('/tag/:id/delete', function(req, res) {});
 

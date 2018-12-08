@@ -19,7 +19,7 @@
 			</div>
 
 			<p class="pa0 pt3 pl2">
-				<span class="pl2 pr2 br3 bg-light-red mr1 ml1 white pointer" ng-repeat="tag in post.tags">{{tag.tag}}</span>
+				<a href="/#!/tag/{{tag._id}}" class="montserrat pa2 br3 mr1 ml1 fw1 white pointer" ng-repeat="tag in post.tags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">#{{tag.tag}}</a>
 			</p>
 			<!-- Should add beginning of content? -->
 			<!-- <p class="pt3 pl2">{{post.content}}</p> -->

@@ -1,7 +1,7 @@
 'use strict';
 
-convert.controller('tagController', ['$scope', '$resource', '$rootScope', '$http', '$location',
-  function ($scope, $resource, $rootScope, $http, $location) {
-  	// $scope.tags = $resource('/tags').query();
-    $scope.tags = [ 'node', 'ruby on rails', 'web dev', 'desktop dev', 'java', 'go', 'javascript', 'python', 'ruby', 'C', 'C++', 'C#', 'swift' ];
+convert.controller('tagViewController', ['$scope', '$resource', '$rootScope', '$http', '$location', '$routeParams',
+  function ($scope, $resource, $rootScope, $http, $location, $routeParams) {
+  	$scope.tag = $resource('/tag/' + $routeParams.id).get();
+  	$scope.posts = $resource('/tag/' + $routeParams.id + '/posts').query();
   }]);

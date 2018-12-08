@@ -8,7 +8,7 @@
 						<img src="public/images/{{post.createdBy.profileImage}}">
 					</div>
 					<div class="dib pa3">
-						<span ng-repeat="tag in post.tags" class="bg-black white pa2 ml1 mr1 br3">{{tag}}</span>
+						<a href="/#!/tag/{{tag._id}}" class="montserrat pa2 br3 mr1 ml1 fw1 white" ng-repeat="tag in post.tags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">#{{tag.tag}}</a>
 						<div class="pt3 ml1">
 							{{post.createdBy.username}} - {{post.createdAt}}
 						</div>
