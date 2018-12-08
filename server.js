@@ -386,9 +386,35 @@ app.get('/posts', function(req, res) {
 		  res.status(400).send(JSON.stringify('Unable to find posts'));
 		  return;
 		}
-		console.log('Sucessfully found information for all posts');
-		res.status(200).send(JSON.stringify(posts));
-		return;
+
+		if(posts.length === 0) {
+			console.log('Sucessfully found information for all posts');
+			res.status(200).send(JSON.stringify(posts));
+			return;
+		}
+
+		var remaining = posts.length;
+
+		posts.forEach(function(post) {
+			Tag.find({ _id: { $in: post.tags } }, function(err, tags) {
+
+				if(err) {
+					console.log('Error finding tags while posting: ' + err);
+			  	res.status(400).send(JSON.stringify('Unable to find tags while retrieving posts'));
+			  	return;
+				}
+
+				post.tags = tags;
+				remaining -= 1;
+
+				if(remaining === 0) {
+					console.log('Sucessfully found information for all posts');
+					console.log(posts);
+					res.status(200).send(JSON.stringify(posts));
+					return;
+				}
+			});
+		});
 	});
 });
 
@@ -406,32 +432,23 @@ app.post('/post/:userId/new', function(req, res) {
 	  	return;
 		}
 
-		Tag.find({ _id: { $in: req.body.tags } }, function(err, tags) {
+		var newPost = {
+			createdBy: { userId: userId, username: user.username, profileImage: user.profileImage },
+			title: req.body.title,
+			content: req.body.content,
+			tags: req.body.tags
+		};
 
+		Post.create(newPost, function(err, post) {
 			if(err) {
-				console.log('Error finding tags while posting: ' + err);
-		  	res.status(400).send(JSON.stringify('Unable to find tags while posting'));
+				console.log('Error creating post for user: ' + userId +' : ' + err);
+		  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
 		  	return;
 			}
-
-			var newPost = {
-				createdBy: { userId: userId, username: user.username, profileImage: user.profileImage },
-				title: req.body.title,
-				content: req.body.content,
-				tags: tags
-			};
-
-			Post.create(newPost, function(err, post) {
-				if(err) {
-					console.log('Error creating post for user: ' + userId +' : ' + err);
-			  	res.status(400).send(JSON.stringify('Unable to create post for: ' + userId));
-			  	return;
-				}
-				console.log(post);
-				console.log('Sucessfully posted for: ' + userId);
-				res.status(200).send(JSON.stringify(post));
-				return;
-			});
+			console.log(post);
+			console.log('Sucessfully posted for: ' + userId);
+			res.status(200).send(JSON.stringify(post));
+			return;
 		});
 	});
 });
@@ -447,9 +464,20 @@ app.get('/post/:id', function(req, res) {
 	  	return;
 		}
 
-		console.log('Sucessfully found post tags: ' + postId);
-		res.status(200).send(JSON.stringify(post));
-		return;
+		Tag.find({ _id: { $in: post.tags } }, function(err, tags) {
+
+			if(err) {
+				console.log('Error finding tags while retrieving post: ' + postId + ' : ' + err);
+		  	res.status(400).send(JSON.stringify('Unable to find tags while retrieving post'));
+		  	return;
+			}
+
+			post.tags = tags;
+
+			console.log('Sucessfully found post: ' + postId);
+			res.status(200).send(JSON.stringify(post));
+			return;
+		});
 	});
 });
 

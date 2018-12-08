@@ -15,10 +15,10 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
       document.getElementById('preview').innerHTML = converter.makeHtml($scope.newPost.postContent);
       $scope.markdownPreview = !$scope.markdownPreview;
     }
-  	$scope.toggleTag = function(tag) {
-      console.log(tag);
-  		if($scope.selectedTags.includes(tag)) $scope.selectedTags.splice($scope.selectedTags.indexOf(tag), 1);
-  		else $scope.selectedTags.push(tag);
+  	$scope.toggleTag = function(tagId) {
+      console.log(tagId);
+  		if($scope.selectedTags.includes(tagId)) $scope.selectedTags.splice($scope.selectedTags.indexOf(tagId), 1);
+  		else $scope.selectedTags.push(tagId);
   	}
     $scope.createTag = function() {
 
