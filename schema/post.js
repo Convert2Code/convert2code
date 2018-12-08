@@ -13,7 +13,8 @@ var postSchema = new mongoose.Schema({
     },
     title: String,
     content: String,
-    tags: Object
+    tags: Object,
+    hearts: { type: Number, default: 0 }
 });
 
 var Post = mongoose.model('Post', postSchema);
