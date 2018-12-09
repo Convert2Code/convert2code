@@ -5,7 +5,7 @@
 var mongoose = require('mongoose');
 
 var postSchema = new mongoose.Schema({
-    createdAt: { type: Date, default: Date.now },
+    createdAt: String,
     createdBy: {
     	userId: mongoose.Schema.Types.ObjectId,
     	username: String,

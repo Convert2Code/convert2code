@@ -10,10 +10,11 @@ var userSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     lastSignInAt: Date,
     profileImage: String,
-    interests: [String],
     notifications: [String],
+    interests: [mongoose.Schema.Types.ObjectId],
     posts: [mongoose.Schema.Types.ObjectId],
-    hearted: [mongoose.Schema.Types.ObjectId]
+    hearted: [mongoose.Schema.Types.ObjectId],
+    saved: [mongoose.Schema.Types.ObjectId],
 });
 
 var User = mongoose.model('User', userSchema);

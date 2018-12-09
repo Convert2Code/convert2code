@@ -7,7 +7,7 @@
 
 		<div>
 			<!-- Add ng-style to each tag -->
-			<div ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }" class="dib montserrat pa2 br3 mr1 ml1 fw1 white pointer bg-animate no-outline" ng-repeat="tag in newPostTags" ng-click="toggleTag(tag._id)" ng-class=" selectedTags.includes(tag._id) ? 'o-50' : 'o-100' ">#{{tag.tag}}</div>
+			<div ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }" class="dib montserrat pa2 br3 mt1 mr1 ml1 fw1 white pointer bg-animate no-outline" ng-repeat="tag in newPostTags" ng-click="toggleTag(tag._id)" ng-class=" selectedTags.includes(tag._id) ? 'o-50' : 'o-100' ">#{{tag.tag}}</div>
 			<div class="dib pa2 br3 bg-light-red ma1 white pointer ba b--light-red hover-bg-white hover-light-red bg-animate no-outline" ng-click="main.openModal = true">+ tag</div>
 		</div>
 		<div class="mt2 tc">
@@ -39,7 +39,7 @@
 	<!-- TODO: Allow font color change -->
 	<!-- TODO: Standardize tag display/styles -->
 	<div id="modal" class="br3 shadow-4" ng-class="main.openModal ? '' : 'dn' ">
-		<i class="fa fa-times fa-1x fa-fw pointer dib flr pa2 gray dim" ng-click="main.openModal = false"></i>
+		<i class="fa fa-times fa-1x fa-fw pointer dib flr pa2 gray dim no-outline" ng-click="main.openModal = false"></i>
 		<h3 class="tc">Create new Tag!</h3>
 
 		<div class="w-90 tc center">
@@ -51,9 +51,18 @@
   		<input type="range" min="1" max="255" value="100" class="custom-slider" ng-model="newTag.newTagBlue">
 		</div>
 
+		<div class="mt1 mb1">
+			<span class="v-btm">white</span>
+			<label class="switch">
+	  		<input type="checkbox" ng-model="newTag.isFontBlack">
+	  		<span class="slider">
+			</label>
+			<span class="v-btm">black</span>
+		</div>
+
 		<input type="text" placeholder="tag" class="db center pa1 gray" ng-model="newTag.newTagText">
 		<div class="ma3">
-			<span class="pl3 pr3 pt2 pb2 br3 black montserrat" ng-style="{ 'background-color': 'rgb(' + newTag.newTagRed + ',' + newTag.newTagGreen + ',' + newTag.newTagBlue + ')' }">#{{newTag.newTagText}}</span>
+			<span class="pl3 pr3 pt2 pb2 br3 black montserrat" ng-style="{ 'background-color': 'rgb(' + newTag.newTagRed + ',' + newTag.newTagGreen + ',' + newTag.newTagBlue + ')', 'color': newTag.isFontBlack ? '#000' : '#fff' }">#{{newTag.newTagText}}</span>
 		</div>
 		<input type="button" name="createTag" value="create" ng-click="createTag()" class="db ma2 center bg-c2c-blue white b-c2c-blue hover-bg-white hover-c2c-blue-color pointer pl3 pr3 pt2 pb2 br2 bg-animate w-40 no-outline">
 	</div>

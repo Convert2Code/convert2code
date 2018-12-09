@@ -270,6 +270,7 @@ app.get('/user/:id', function(req, res) {
 		  res.status(400).send(JSON.stringify('Unable to find user'));
 		  return;
 		}
+
 		console.log('Sucessfully found information for: ' + user.username);
 		res.status(200).send(JSON.stringify(user));
 		return;
@@ -335,19 +336,44 @@ app.get('/user/:id/posts', function(req, res) {
 	});
 });
 
+app.get('/user/:id/tags', function(req, res) {
+
+	var userId = req.params.id;
+
+	User.findOne({ _id: userId }, function(err, user) {
+		if(err) {
+			console.log('Error finding user while finding interests: ' + userId +' : ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find user while finding interests for: ' + userId));
+	  	return;
+		}
+
+		Tag.find({ _id: { $in: user.interests } }, function(err, tags) {
+			if(err) {
+				console.log('Error finding interest tags for user: ' + user._id +' : ' + err);
+		  	res.status(400).send(JSON.stringify(user));
+		  	return;
+			}
+
+			console.log('Sucessfully retrieved interest tags for: ' + userId);
+			res.status(200).send(JSON.stringify(tags));
+			return;
+		});
+	});
+});
+
 app.post('/user/:userId/like/:postId', function(req, res) {
 
 	var userId = req.params.userId;
 	var postId = req.params.postId;
 
-	User.findOne({  }, function(err, user) {
+	User.findOne({ _id: userId }, function(err, user) {
 		if(err) {
 			console.log('Error finding user: ' + userId + ' while liking post: ' + postId + ' : ' + err);
 	  	res.status(400).send(JSON.stringify('Unable to find user while liking post'));
 	  	return;
 		}
 
-		Post.findOne({  }, function(err, post) {
+		Post.findOne({ _id: postId }, function(err, post) {
 			if(err) {
 				console.log('Error finding post while liking post: ' + postId + ' : ' + err);
 		  	res.status(400).send(JSON.stringify('Unable to find post while liking post'));
@@ -355,7 +381,7 @@ app.post('/user/:userId/like/:postId', function(req, res) {
 			}
 
 			post.hearts++;
-			user.hearted = user.hearted.push(postId);
+			user.hearted = user.hearted.concat(postId);
 
 			post.save();
 			user.save();
@@ -364,6 +390,48 @@ app.post('/user/:userId/like/:postId', function(req, res) {
 			res.status(200).send(JSON.stringify(user));
 			return;
 		});
+	});
+});
+
+app.post('/user/:userId/save/:postId', function(req, res) {
+
+	var userId = req.params.userId;
+	var postId = req.params.postId;
+
+	User.findOne({ _id: userId }, function(err, user) {
+		if(err) {
+			console.log('Error finding user: ' + userId + ' while saving post: ' + postId + ' : ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find user while saving post'));
+	  	return;
+		}
+
+		user.saved = user.saved.concat(postId);
+		user.save();
+
+		console.log('Sucessfully saved the post: ' + postId);
+		res.status(200).send(JSON.stringify(user));
+		return;
+	});
+});
+
+app.post('/user/follow/:tagId', function(req, res) {
+	// TODO: Add require login for this piece
+	var userId = req.session._id;
+	var tagId = req.params.tagId;
+
+	User.findOne({ _id: userId }, function(err, user) {
+		if(err) {
+			console.log('Error finding user: ' + userId + ' while following tag: ' + tagId + ' : ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find user while following tag'));
+	  	return;
+		}
+
+		user.interests = user.interests.concat(tagId);
+		user.save();
+
+		console.log('Sucessfully followed the tag: ' + tagId);
+		res.status(200).send(JSON.stringify(user));
+		return;
 	});
 });
 
@@ -464,6 +532,7 @@ app.post('/post/:userId/new', function(req, res) {
 		}
 
 		var newPost = {
+			createdAt: (new Date()).toDateString(),
 			createdBy: { userId: userId, username: user.username, profileImage: user.profileImage },
 			title: req.body.title,
 			content: req.body.content,

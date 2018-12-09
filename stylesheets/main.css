@@ -229,6 +229,7 @@
 	.c2c-blue { color: #33ccff; }
 	.c2c-orange { color: #ffcc33; }
 
+	.hover-white-no-border:hover { color: white; border-color: black; }
 	.hover-c2c-blue:hover { background-color: #33ccff; }
 	.hover-c2c-orange:hover { background-color: #ffcc33; }
 	.hover-c2c-off-blue:hover {
@@ -264,6 +265,7 @@
 	.w-50px { width: 50px; }
 	.mw-75 { max-width: 75%; }
 	.h-5px { height: 5px; }
+	.h-300px { height: 300px; }
 
 	.no-outline { outline: none; }
 	.no-border { border: none; }
@@ -301,13 +303,11 @@
 	.nav-tile-pad { padding: 30px 24px; }
 
 	.tag-container {
-		height: 400px;
 		width: 300px;
-		overflow: scroll;
 	}
 
 	.user-container {
-		height: 300;
+		height: 300px;
 		width: 300px;
 		overflow: scroll;
 	}
@@ -370,7 +370,7 @@
 
 	#modal {
 		position:  fixed;
-    top: 300px;
+    top: 200px;
     left: 50%;
     width: 375px;
     background: white;

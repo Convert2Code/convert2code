@@ -7,7 +7,21 @@ convert.controller('userController', ['$scope', '$resource', '$rootScope', '$htt
 
     $scope.toggle = 'feed';
     $scope.tags = $resource('/tags').query();
-    $scope.user = $resource('/user/' + userId).get();
+    $resource('/user/' + userId).get(function(user) {
+      $scope.user = user;
+
+      $resource('/tags').query(function(tags) {
+        $scope.tags = tags;
+
+        $scope.userTags = tags.filter(function(tag) { return user.interests.includes(tag._id) });
+
+      }, function(err) {
+        console.log('Erroring finding tags: ' + err);
+      });
+    }, function(err) {
+      console.log('Erroring finding user: ' + err);
+    });
+    $scope.userTags = $resource('/user/' + userId + '/tags').query();
 
     $scope.logout = function() {
     	$resource('/logout').save(function() {

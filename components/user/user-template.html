@@ -1,16 +1,27 @@
 <div class="tc">
 	<!-- <h1 class="ma0">HI {{user.username}}</h1> -->
-	<div class="dib shadow-4 ma2 tag-container v-top bg-white tl">
-		<h3 class="w-100 tc">interests</h3>
-		<div class="f6 fw7">
-			<a href="/#!/tag/{{tag._id}}"  ng-repeat="tag in tags" class="db pa2 pointer hover-c2c-orange">#{{tag.tag}}</a>
-			<a href="/#!/tags" class="db pa2 pointer hover-c2c-orange">see all</a>
+	<div class="dib ma2 v-top">
+
+		<div class="shadow-4 ma2 mt0 tag-container v-top bg-white tl">
+			<h3 class="w-100 pt2 tc">interests</h3>
+			<div class="f6 fw7 overflow-scroll h-300px">
+				<a href="/#!/tag/{{tag._id}}"  ng-repeat="tag in tags" class="db pa2 pointer hover-c2c-orange">#{{tag.tag}}</a>
+			</div>
+			<a href="/#!/tags" class="db pa2 pointer hover-c2c-orange v-btm bg-light-gray">see all</a>
+			<!-- Only display most popular -->
 		</div>
-		<!-- Only display most popular -->
+
+		<div class="shadow-4 ma2 tag-container v-top bg-white tl h-300px">
+			<h3 class="w-100 pt2 tc">your interests</h3>
+			<div class="f6 fw7">
+				<a href="/#!/tag/{{tag._id}}" class="dib montserrat pa2 br3 mr1 mt1 ml1 fw1 white pointer" ng-repeat="tag in userTags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">#{{tag.tag}}</a>
+			</div>
+		</div>
+
 	</div>
 
 	<div class="dib w-50 v-top bg-white tl">
-		<input type="text" placeholder="search" class="w-100 pa3 ma2 ">
+		<input type="text" placeholder="search" class="w-100 pa3 ma2" ng-model="search">
 		<div class="w-100 mt2 mb2 tc">
 			<span ng-click="toggle = 'posts' " class="pa2 mr2 no-outline pointer bg-c2c-orange black f5 fw4 br3">my posts</span>
 			<span ng-click="toggle = 'feed' " class="pa2 ml2 no-outline pointer bg-c2c-orange black f5 fw4 br3">feed</span>

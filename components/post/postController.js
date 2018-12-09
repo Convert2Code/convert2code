@@ -6,7 +6,7 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
 
   	$scope.myPosts = $resource('/user/' + $routeParams.id + '/posts').query();
     $scope.markdownPreview = false;
-  	$scope.newPostTags = $resource('/tags').query(); // [ 'node', 'ruby on rails', 'web dev', 'desktop dev', 'java', 'go', 'javascript', 'python', 'ruby', 'C', 'C++', 'C#', 'swift' ];
+  	$scope.newPostTags = $resource('/tags').query();
   	$scope.selectedTags = [];
   	$scope.newPost = {};
     $scope.newTag = {};
@@ -25,7 +25,7 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
       var tag = {
         tag: $scope.newTag.newTagText,
         backgroundColor: 'rgb(' + $scope.newTag.newTagRed + ',' + $scope.newTag.newTagGreen + ',' + $scope.newTag.newTagBlue + ')',
-        fontColor: 'rgb(0, 0, 0)'
+        fontColor: $scope.newTag.isFontBlack ? '#000' : '#fff'
       }
 
       $resource('/tag/' + $routeParams.id + '/new').save(tag, function(tag) {
