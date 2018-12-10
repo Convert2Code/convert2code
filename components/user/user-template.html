@@ -20,15 +20,16 @@
 
 	</div>
 
-	<div class="dib w-50 v-top bg-white tl">
-		<input type="text" placeholder="search" class="w-100 pa3 ma2" ng-model="search">
+	<div class="dib w-50 v-top bg-white tl" ng-switch="view">
+		<input type="text" placeholder="search" class="w-100 pa3 mb2 mt2" ng-model="search">
+		<!--
 		<div class="w-100 mt2 mb2 tc">
-			<span ng-click="toggle = 'posts' " class="pa2 mr2 no-outline pointer bg-c2c-orange black f5 fw4 br3">my posts</span>
-			<span ng-click="toggle = 'feed' " class="pa2 ml2 no-outline pointer bg-c2c-orange black f5 fw4 br3">feed</span>
+			<span ng-click="toggle = 'posts' " class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate no-outline">my posts</span>
+			<span ng-click="toggle = 'feed' " class="pa2 ml2 no-outline pointer bg-c2c-orange black f5 fw6 br3">feed</span>
 		</div>
-
-		<div ng-include="'components/post/post-template.html'" ng-controller="postController" ng-show="toggle === 'posts'" class="mt3"></div>
-		<div ng-include="'components/feed/feed-template.html'" ng-controller="feedController" ng-show="toggle === 'feed'"></div>
+		-->
+		<span ng-switch-when="posts"><div ng-include="'components/post/post-template.html'" ng-controller="postController" class="mt3"></div></span>
+		<span ng-switch-when="feed"><div ng-include="'components/feed/feed-template.html'" ng-controller="feedController"></div></span>
 	</div>
 
 	<div class="dib shadow-4 ma2 v-top bg-white">

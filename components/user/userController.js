@@ -5,7 +5,8 @@ convert.controller('userController', ['$scope', '$resource', '$rootScope', '$htt
   	var selectedPhotoFile;   // Holds the last file selected by the user
   	var userId = $routeParams.id
 
-    $scope.toggle = 'feed';
+    // $scope.toggle = 'feed';
+    $scope.view = $routeParams.view;
     $scope.tags = $resource('/tags').query();
     $resource('/user/' + userId).get(function(user) {
       $scope.user = user;
@@ -58,5 +59,9 @@ convert.controller('userController', ['$scope', '$resource', '$rootScope', '$htt
       	console.log('Error while uploading profile pic: ' + err);
       });
     }
+
+    $rootScope.$on('$routeChangeStart', function() {
+      $scope.view = $routeParams.view;
+    });
 
   }]);

@@ -24,7 +24,7 @@ convert.config(['$routeProvider',
         templateUrl: 'components/register/register-template.html',
         controller: 'registerController'
       }).
-      when('/user/:id', {
+      when('/user/:id/:view', {
         templateUrl: 'components/user/user-template.html',
         controller: 'userController'
       }).
@@ -45,8 +45,9 @@ convert.config(['$routeProvider',
       });
     }]);
 
-convert.controller('mainController', ['$scope', '$resource', '$rootScope', '$http', '$location',
-  function ($scope, $resource, $rootScope, $http, $location) {
+convert.controller('mainController', ['$scope', '$resource', '$rootScope', '$http', '$location', '$routeParams',
+  function ($scope, $resource, $rootScope, $http, $location, $routeParams) {
     $scope.main = {}
     $scope.main.openModal = false;
+    $scope.main.switcher = 'feed';
   }]);
