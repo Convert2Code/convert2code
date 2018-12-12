@@ -361,6 +361,30 @@ app.get('/user/:id/tags', function(req, res) {
 	});
 });
 
+app.get('/user/:id/saved', function(req, res) {
+
+	var userId = req.params.id;
+
+	User.findOne({ _id: userId }, function(err, user) {
+		if(err) {
+			console.log('Error finding user: ' + userId + ' while retrieving saved posts: ' + err);
+	  	res.status(400).send(JSON.stringify('Unable to find user while retrieving saved posts'));
+	  	return;
+		}
+
+		Post.find({ _id: { $in: user.saved } }, function(err, posts) {
+			if(err) {
+				console.log('Error retrieving saved posts for user: ' + userId + ' : ' + err);
+	  		res.status(400).send(JSON.stringify('Unable to find saved posts while retrieving saved posts'));
+	  		return;
+			}
+			console.log('Sucessfully retrieved saved posts for: ' + userId);
+			res.status(200).send(JSON.stringify(posts));
+			return;
+		});
+	});
+});
+
 app.post('/user/:userId/like/:postId', function(req, res) {
 
 	var userId = req.params.userId;

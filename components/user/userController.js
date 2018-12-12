@@ -5,7 +5,6 @@ convert.controller('userController', ['$scope', '$resource', '$rootScope', '$htt
   	var selectedPhotoFile;   // Holds the last file selected by the user
   	var userId = $routeParams.id
 
-    // $scope.toggle = 'feed';
     $scope.view = $routeParams.view;
     $scope.tags = $resource('/tags').query();
     $resource('/user/' + userId).get(function(user) {
