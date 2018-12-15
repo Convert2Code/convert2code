@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema({
     password: String,
     createdAt: { type: Date, default: Date.now },
     lastSignInAt: Date,
-    profileImage: String,
+    profileImage: { type: String, default: 'default.png' },
     notifications: [String],
     interests: [mongoose.Schema.Types.ObjectId],
     posts: [mongoose.Schema.Types.ObjectId],
