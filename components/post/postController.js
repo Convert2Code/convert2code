@@ -21,6 +21,15 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
   		else $scope.selectedTags.push(tagId);
   	}
     $scope.createTag = function() {
+      console.log($scope.newTag.newTagText);
+      if($scope.newTag.newTagText === undefined) {
+        alert('Your tag cannot be empty!');
+        return;
+      }
+      if(/ /.test($scope.newTag.newTagText)) {
+        alert('Your tag cannot have spaces!');
+        return;
+      }
 
       var tag = {
         tag: $scope.newTag.newTagText,
@@ -28,11 +37,13 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
         fontColor: $scope.newTag.isFontBlack ? '#000' : '#fff'
       }
 
-      $resource('/tag/' + $routeParams.id + '/new').save(tag, function(tag) {
+      $resource('/tag/' + $routeParams.id + '/new', {}, { save: { method: 'POST', isArray: true } }).save(tag, function(tags) {
         console.log('Tag was successfully created!');
+        $scope.newTag = {};
+        $scope.newPostTags = tags;
         $scope.main.openModal = false;
       }, function(err) {
-        console.log('There was an error while creating this new tag!');
+        console.log('There was an error while creating this new tag!' + err);
       });
 
     }
@@ -52,5 +63,15 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
   			console.log('There was an error while posting!');
   		});
   	}
+
+    $scope.newPost.placeholder = 'This text box supports markdown!\n' +
+                                 'If you want to learn more about markdown, go to this site: https://www.markdowntutorial.com/\n\n' +
+                                 'To create a post and get started you need:\n' +
+                                 '1. A title for your new post\n' +
+                                 '2. At least one tag seleected\n' +
+                                 '3. Some content for your new post!\n\n' +
+                                 'If a tag you need is not here, simply create it with the "+ tag" button above!\n\n' +
+                                 'To preview your post, hit the preview button...and then click edit to change anything you do not like\n\n' +
+                                 'REMEMBER: Anything you post can be seen by the entire Convert community, so post responsibly :)';
 
   }]);

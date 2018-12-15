@@ -50,7 +50,11 @@ var BCRYPT_SALT_ROUNDS = 12;
 
 mongoose.connect('mongodb://localhost/convert2code');
 
-app.use(session({ secret: 'thesuperduperestsecretofalltime' }));
+app.use(session({
+  secret: 'thesuperduperestsecretofalltime',
+  resave: false,
+  saveUninitialized: true
+}));
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
 
@@ -170,6 +174,22 @@ app.get('/users', function(req, res) {
 	});
 });
 
+app.get('/get/user', function(req, res) {
+	console.log(req.session);
+	User.findOne({ username: req.session.username }, function(err, user) {
+		if(err || user === null) {
+			console.log('Error finding user: ' + err);
+		  res.status(400).send(JSON.stringify('User not logged in'));
+		  return;
+		}
+
+		console.log('Successfully found user');
+		console.log(user);
+		res.status(200).send(JSON.stringify(user));
+		return;
+	});
+});
+
 /* TODO: add requirelogin() */
 
 /* TODO: revisit security and id checking */
@@ -197,6 +217,7 @@ app.post('/user/login', function(req, res) {
   			/* REINCORPORATE BCRYPT */
 	  		req.session._id = user._id;
 	    	req.session.username = user.username;
+	    	req.session.save();
 	    	// Add notifications to session?
 
 	  		res.status(200).send(JSON.stringify(user));
@@ -220,6 +241,7 @@ app.post('/logout', function(req, res) {
 		}
 		console.log('Logged user out');
 		res.status(200).send(JSON.stringify('Logged Out'));
+		return;
 	});
 });
 
@@ -362,7 +384,6 @@ app.get('/user/:id/tags', function(req, res) {
 });
 
 app.get('/user/:id/saved', function(req, res) {
-
 	var userId = req.params.id;
 
 	User.findOne({ _id: userId }, function(err, user) {
@@ -482,8 +503,8 @@ app.post('/user/:id/setprofilepic', function(req, res) {
 
       fs.writeFile("./public/images/" + filename, req.file.buffer, function (err) {
       	if(err) {
-      		console.log('Error finding posts: ' + err);
-		  		res.status(400).send(JSON.stringify('Unable to find posts'));
+      		console.log('Error writing new image as profile image: ' + err);
+		  		res.status(400).send(JSON.stringify('Error writing new image to server'));
 		  		return;
       	}
       	user.profileImage = filename;
@@ -533,7 +554,7 @@ app.get('/posts', function(req, res) {
 
 				if(remaining === 0) {
 					console.log('Sucessfully found information for all posts');
-					console.log(posts);
+					// console.log(posts);
 					res.status(200).send(JSON.stringify(posts));
 					return;
 				}
@@ -693,8 +714,18 @@ app.post('/tag/:userId/new', function(req, res) {
 	  	return;
 		}
 		console.log('Sucessfully created tag by: ' + userId);
-		res.status(200).send(JSON.stringify(tag));
-		return;
+
+		Tag.find({}, function(err, tags) {
+			if(err) {
+				console.log('Error finding tags: ' + err);
+			  res.status(400).send(JSON.stringify('Unable to find tags while creating new tag'));
+			  return;
+			}
+
+			console.log('Sucessfully found information for all tags after creating new tag');
+			res.status(200).send(JSON.stringify(tags));
+			return;
+		});
 	});
 });
 

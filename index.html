@@ -39,12 +39,12 @@
 		<title>Convert to Code | Labs</title>
 	</head>
 	<body ng-class="main.openModal ? 'overflow-hidden' : '' ">
-		<div class="w-100 bg-white">
+		<div class="w-100 bg-white" ng-show="user">
 			<div class="w-50 ma1 center b-c2c-orange-bottom">
 				<img src="images/WSGraphic.png" class="pic_container v-btm ma1">
-				<a href="/#!/user/{{main.user._id}}/posts" class="dib hover-bg-white ma2 pa2 f4 fw6">my posts</a>
-				<a href="/#!/user/{{main.user._id}}/feed" class="dib hover-bg-white ma2 pa2 f4 fw6">feed</a>
-				<a href="/#!/user/{{main.user._id}}/saved" class="dib hover-bg-white ma2 pa2 f4 fw6">saved</a>
+				<a href="/#!/user/{{user._id}}/posts" class="dib hover-bg-white ma2 pa2 f4 fw6">my posts</a>
+				<a href="/#!/user/{{user._id}}/feed" class="dib hover-bg-white ma2 pa2 f4 fw6">feed</a>
+				<a href="/#!/user/{{user._id}}/saved" class="dib hover-bg-white ma2 pa2 f4 fw6">saved</a>
 				<a href="/#!/tags" class="dib hover-bg-white ma2 pa2 f4 fw6">tags</a>
 			</div>
 		</div>

@@ -12,10 +12,10 @@
 		</div>
 		<div class="mt2 tc">
 			<!-- TODO: Add markdown explainer with examples in this field... -->
-			<textarea name="" placeholder="content" ng-model="newPost.postContent" class="w-100 db mb2" ng-show="!markdownPreview"></textarea>
+			<textarea name="" placeholder="{{newPost.placeholder}}" ng-model="newPost.postContent" class="w-100 db mb2" ng-show="!markdownPreview"></textarea>
 			<div id="preview" ng-show="markdownPreview" class="tl"></div>
 			<div class="w-100 tl">
-				<input type="button" name="post" value="+ post" ng-click="newPost()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate no-outline">
+				<input type="button" name="post" value="+ post" ng-click="newPost()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate no-outline" ng-disabled="selectedTags.length === 0 || !newPost.postContent || !newPost.postTitle">
 				<input type="button" name="previewToggle" value="{{markdownPreview ? 'edit' : 'preview'}}" ng-click="preview()" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate no-outline">
 			</div>
 		</div>
@@ -28,9 +28,9 @@
 			<span>{{post.title}}</span>
 			<!-- <span>{{post.content}}</span> -->
 			<div class="dib">
-				<i class="fa fa-pencil fa-1x fa-fw c2c-orange pointer tooltip"></i>
+				<!-- <i class="fas fa-pencil-alt fa-1x fa-fw c2c-orange pointer"></i> -->
 				<a href="/#!/post/{{post._id}}/view"><i class="fa fa-eye fa-1x fa-fw c2c-orange pointer"></i></a>
-				<i class="fa fa-trash-o fa-1x fa-fw red pointer"></i>
+				<!-- <i class="fa fa-trash-o fa-1x fa-fw red pointer"></i> -->
 			</div>
 		</div>
 	</div>

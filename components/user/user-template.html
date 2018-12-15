@@ -21,7 +21,6 @@
 	</div>
 
 	<div class="dib w-50 v-top bg-white tl" ng-switch="view">
-		<input type="text" placeholder="search" class="w-100 pa3 mb2 mt2" ng-model="search">
 		<!--
 		<div class="w-100 mt2 mb2 tc">
 			<span ng-click="toggle = 'posts' " class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate no-outline">my posts</span>
@@ -33,15 +32,17 @@
 		<span ng-switch-when="saved"><div ng-include="'components/saved/saved-template.html'" ng-controller="savedController"></div></span>
 	</div>
 
-	<div class="dib shadow-4 ma2 v-top bg-white">
+	<div class="dib shadow-4 ma2 v-top bg-white w-250px">
 		<h3 class="w-100 ma0 pa2 tc">{{user.username}}</h3>
 		<div class="circle major-profile-pic center">
+			<input type="file" accept="image/*"  onchange="angular.element(this).scope().inputFileNameChanged(this)" id="file-upload" class=" o-0 absolute" style="width: 1px">
 			<img src="public/images/{{user.profileImage}}" class="">
 		</div>
 		<div class="f6 fw7 mt1">
 			<div class="">
-				<input type="file" accept="image/*"  onchange="angular.element(this).scope().inputFileNameChanged(this)" class="no-outline bg-c2c-blue white b-c2c-blue hover-bg-white hover-c2c-blue-color pointer pl3 pr3 pt1 pb1 br2 mt1 bg-animate">
-				<input type="button" value="upload" ng-click="uploadPhoto()" class="w-100 db bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt1 pb1 br2 bg-animate no-outline">
+				<label for="file-upload" class="dib no-outline bg-c2c-blue white b-c2c-blue hover-bg-white hover-c2c-blue-color pointer ma2 pl3 pr3 pt1 pb1 br2 mt1 bg-animate avenir">select a file</label>
+
+				<input type="button" value="upload" ng-click="uploadPhoto()" class="center db bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt1 pb1 br2 bg-animate no-outline avenir fw7">
 			</div>
 			<a ng-click="logout()" class="db mt1 pa2 pointer hover-c2c-orange tc">logout</a>
 		</div>

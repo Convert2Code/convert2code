@@ -50,4 +50,16 @@ convert.controller('mainController', ['$scope', '$resource', '$rootScope', '$htt
     $scope.main = {}
     $scope.main.openModal = false;
     $scope.main.switcher = 'feed';
+
+    var getCurrentUser = function() {
+      $resource('/get/user').get(function(user) {
+        $scope.user = user;
+      }, function(err) {
+        $location.path('/help');
+      });
+    }
+
+    getCurrentUser();
+    $scope.$on('login', function() { getCurrentUser(); });
+    $scope.$on('logout', function() { $scope.user = null; });
   }]);

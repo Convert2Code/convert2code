@@ -34,8 +34,10 @@
 			<!-- <p class="pt3 pl2">{{post.content}}</p> -->
 
 			<div class="mt2 pa2 tr">
-				<input type="button" name="save" value="save" ng-click="" class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt1 pb1 br2 bg-animate">
-				<input type="button" name="like" value="like" ng-click="" class="bg-c2c-blue white b-c2c-blue hover-bg-white hover-c2c-blue-color pointer pl3 pr3 pt1 pb1 br2 bg-animate">
+				<div class="dib no-outline ba bg-light-red b--light-red pa1 br3 v-btm">
+					<i class="fas fa-heartbeat fa-2x white v-btm"></i>
+					<div class="dib br3 pa2 montserrat white">{{post.hearts}}</div>
+				</div>
 			</div>
 		</div>
 

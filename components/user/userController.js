@@ -9,12 +9,9 @@ convert.controller('userController', ['$scope', '$resource', '$rootScope', '$htt
     $scope.tags = $resource('/tags').query();
     $resource('/user/' + userId).get(function(user) {
       $scope.user = user;
-
       $resource('/tags').query(function(tags) {
         $scope.tags = tags;
-
         $scope.userTags = tags.filter(function(tag) { return user.interests.includes(tag._id) });
-
       }, function(err) {
         console.log('Erroring finding tags: ' + err);
       });
@@ -25,6 +22,8 @@ convert.controller('userController', ['$scope', '$resource', '$rootScope', '$htt
 
     $scope.logout = function() {
     	$resource('/logout').save(function() {
+        $scope.user = null;
+        $rootScope.$broadcast('logout');
     		$location.path('/');
     	}, function(err) {
     		console.log('Error logging out: ' + err);

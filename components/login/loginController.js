@@ -12,7 +12,7 @@ convert.controller('loginController', ['$scope', '$resource', '$rootScope', '$ht
 
       $resource('/user/login').save(user, function(user) {
         console.log(user);
-        $scope.main.user = user;
+        $rootScope.$broadcast('login');
         $location.path('/user/' + user._id + '/feed');
       }, function(err) {
         console.log(err);
