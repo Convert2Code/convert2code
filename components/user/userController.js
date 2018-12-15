@@ -40,8 +40,8 @@ convert.controller('userController', ['$scope', '$resource', '$rootScope', '$htt
 
     $scope.uploadPhoto = function () {
       if (!$scope.inputFileNameSelected()) {
-          console.error("Tried to upload photo without first selecting file");
-          return;
+        console.error("Tried to upload photo without first selecting file");
+        return;
       }
       console.log('Submitting File: ', selectedPhotoFile);
 
