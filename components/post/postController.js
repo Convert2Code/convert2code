@@ -58,7 +58,7 @@ convert.controller('postController', ['$scope', '$resource', '$rootScope', '$htt
   		// Finishing building out logic handling responses to successful/failed posting
   		$resource('/post/' + $routeParams.id + '/new').save(newPost, function(post) {
   			console.log('Post was successfully shared!');
-  			$location.path('/user/' + $routeParams.id);
+  			$location.path('/user/' + $routeParams.id + '/feed');
   		}, function(err) {
   			console.log('There was an error while posting!');
   		});
