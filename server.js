@@ -200,7 +200,7 @@ app.post('/user/login', function(req, res) {
 	var password = req.body.password;
 
 	User.findOne({ username: username }, function(err, user) {
-		if(err) {
+		if(err || user == null) {
 			console.log('Error finding user with that username: ' + err);
 		  res.status(400).send(JSON.stringify('Unable to find a user with that username'));
 		  return;
