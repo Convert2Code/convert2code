@@ -1,0 +1,47 @@
+<div class="w-100">
+	<div class="center" ng-style="{ 'background-color': tag.backgroundColor }">
+		<div class="w-50 center">
+			<div class="pa3 pl0">
+				<h1 class="dib ma0 f1" ng-style="{ 'color': tag.fontColor }">#{{tag.tag}}</h1>
+				<div class="dib ba br2 ml2 mt2 pa3 pt2 pb2 f4 pointer bg-animate hover-bg-black hover-white-no-border no-outline v-top" ng-click="follow(tag._id)">
+					follow
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="w-50 center">
+
+		<div class="card shadow-4 mt2 mb2 pl3" ng-repeat="post in posts">
+			<a href="/#!/post/{{post._id}}/view" class="db">
+				<h1 class="ma0 pt3 pl2 c2c-orange-underline pointer">{{post.title}}</h1>
+			</a>
+			<div class="pt1">
+				<div class="dib circle minor-profile-pic v-top">
+					<img src="public/images/{{post.createdBy.profileImage}}">
+				</div>
+				<p class="dib pt1 pl2 ma0 pb0 v-top">
+					<span class="b">by:</span> {{post.createdBy.username}}
+					<br>
+					<span class="gray">{{post.createdAt}}</span>
+				</p>
+			</div>
+
+			<p class="pa0 pt3 pl2">
+				<a href="/#!/tag/{{tag._id}}" class="montserrat pa2 br3 mr1 ml1 fw1 white pointer" ng-repeat="tag in post.tags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">#{{tag.tag}}</a>
+			</p>
+			<!-- Should add beginning of content? -->
+			<!-- <p class="pt3 pl2">{{post.content}}</p> -->
+
+			<div class="mt2 pa2 tr">
+				<div class="dib no-outline ba bg-light-red b--light-red pa1 br3 v-btm">
+					<i class="fas fa-heartbeat fa-2x white v-btm"></i>
+					<div class="dib br3 pa2 montserrat white">{{post.hearts}}</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+</div>
+

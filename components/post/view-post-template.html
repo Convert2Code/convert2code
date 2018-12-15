@@ -1,0 +1,43 @@
+<div class="w-100">
+	<div class="center bg-c2c-blue">
+		<div class="w-50 center">
+			<div class="pa3 pl0">
+				<h1 class="ma0 white f1 montserrat v-top">{{post.title}}</h1>
+				<span>
+					<div class="dib circle major-profile-pic v-top">
+						<img src="public/images/{{post.createdBy.profileImage}}">
+					</div>
+					<div class="dib pa3">
+						<a href="/#!/tag/{{tag._id}}" class="montserrat pa2 br3 mr1 ml1 fw1 white" ng-repeat="tag in post.tags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">#{{tag.tag}}</a>
+						<div class="pt3 ml1 b">
+							{{post.createdBy.username}} - {{post.createdAt}}
+						</div>
+					</div>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="w-50 center">
+
+		<div class="mt2 mb2">
+			<div class="dib no-outline ba b--light-red mr1 pa1 br3 pointer v-btm" ng-click="like()" ng-show="!user.hearted.includes(post._id)">
+				<i class="far fa-heart fa-2x light-red v-btm"></i>
+				<div class="dib br3 pa2 montserrat">{{post.hearts}}</div>
+			</div>
+			<div class="dib no-outline ba bg-light-red b--light-red mr1 pa1 br3 v-btm" ng-show="user.hearted.includes(post._id)">
+				<i class="fas fa-heartbeat fa-2x white v-btm"></i>
+				<div class="dib br3 pa2 montserrat white">{{post.hearts}}</div>
+			</div>
+
+			<div class="dib no-outline ba b-c2c-blue ml1 pa1 br3 pointer v-btm" ng-click="save()" ng-show="!user.saved.includes(post._id)">
+				<i class="far fa-save fa-2x c2c-blue v-btm"></i>
+			</div>
+			<div class="dib no-outline ba bg-c2c-blue b-c2c-blue ml1 pa1 br3 v-btm" ng-show="user.saved.includes(post._id)">
+				<i class="far fa-save fa-2x white v-btm"></i>
+			</div>
+		</div>
+
+		<div ng-bind-html="markdownContent"></div>
+	</div>
+</div>

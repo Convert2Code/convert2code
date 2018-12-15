@@ -1,0 +1,25 @@
+<div id="login-container">
+	<div class="w-40 shadow-1 center br3">
+		<h1 class="pa4 ma2 tc">
+			<a href="/"><i class="fa fa-angle-left fa-1x fa-fw dim pointer no-outline"></i></a>
+			Log in to your Convert to Code account!
+		</h1>
+		<div class="w-80 pa3 center">
+			<form name="" novalidate>
+				<ng-form name="loginForm">
+					<div class="db">
+						<input type="text" class="w-100 mt2 mb1 pa3 center" placeholder="username" name="username" ng-model="username" required>
+						<p class="help-block light-red tc" ng-show="loginForm.username.$invalid && !loginForm.username.$pristine">This field is required</p>
+					</div>
+
+					<div class="db">
+						<input type="password" class="w-100 mt1 mb1 pa3 center" placeholder="password" name="password" ng-model="password" required>
+						<p class="help-block light-red tc" ng-show="loginForm.password.$invalid && !loginForm.password.$pristine">This field is required</p>
+					</div>
+
+					<input type="button" value="log me in!" class="w-100 pointer pa3 mt2 no-outline no-border white fw6 f4 br2 bg-c2c-blue hover-c2c-off-blue" ng-click="login()" ng-disabled="loginForm.$invalid">
+				</ng-form>
+			</form>
+		</div>
+	</div>
+</div>

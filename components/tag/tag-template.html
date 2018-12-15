@@ -1,0 +1,17 @@
+<div class="w-100">
+	<div class="center bg-c2c-blue">
+		<div class="w-50 center">
+			<div class="pa3 pl0">
+				<h1 class="ma0 white f1">all tags</h1>
+			</div>
+		</div>
+	</div>
+
+	<div class="w-50 center">
+		<a href="/#!/tag/{{tag._id}}" class="db montserrat pa2 pt4 pb4 ma2 br3 mr1 ml1 fw1 white tc pointer" ng-repeat="tag in tags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">
+			<span class="f3">#{{tag.tag}}</span>
+			<span class="bg-white black pa2 ml2 br2 tc ba b--light-gray">{{tag.relations}}</span>
+		</a>
+	</div>
+</div>
+

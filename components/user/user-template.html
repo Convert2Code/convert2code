@@ -1,0 +1,58 @@
+<div class="tc">
+	<!-- <h1 class="ma0">HI {{user.username}}</h1> -->
+	<div class="dib ma2 v-top">
+
+		<div class="shadow-4 ma2 mt0 tag-container v-top bg-white tl">
+			<h3 class="w-100 pt2 tc">interests</h3>
+			<div class="f6 fw7 overflow-scroll h-300px">
+				<a href="/#!/tag/{{tag._id}}"  ng-repeat="tag in tags" class="db pa2 pointer hover-c2c-orange">#{{tag.tag}}</a>
+			</div>
+			<a href="/#!/tags" class="db pa2 pointer hover-c2c-orange v-btm bg-light-gray">see all</a>
+			<!-- Only display most popular -->
+		</div>
+
+		<div class="shadow-4 ma2 tag-container v-top bg-white tl h-300px">
+			<h3 class="w-100 pt2 tc">your interests</h3>
+			<div class="f6 fw7">
+				<a href="/#!/tag/{{tag._id}}" class="dib montserrat pa2 br3 mr1 mt1 ml1 fw1 white pointer" ng-repeat="tag in userTags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">#{{tag.tag}}</a>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="dib w-50 v-top bg-white tl" ng-switch="view">
+		<!--
+		<div class="w-100 mt2 mb2 tc">
+			<span ng-click="toggle = 'posts' " class="bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt2 pb2 br2 bg-animate no-outline">my posts</span>
+			<span ng-click="toggle = 'feed' " class="pa2 ml2 no-outline pointer bg-c2c-orange black f5 fw6 br3">feed</span>
+		</div>
+		-->
+		<span ng-switch-when="posts"><div ng-include="'components/post/post-template.html'" ng-controller="postController" class="mt3"></div></span>
+		<span ng-switch-when="feed"><div ng-include="'components/feed/feed-template.html'" ng-controller="feedController"></div></span>
+		<span ng-switch-when="saved"><div ng-include="'components/saved/saved-template.html'" ng-controller="savedController"></div></span>
+	</div>
+
+	<div class="dib shadow-4 ma2 v-top bg-white w-250px">
+		<h3 class="w-100 ma0 pa2 tc">{{user.username}}</h3>
+		<div class="circle major-profile-pic center">
+			<input type="file" accept="image/*"  onchange="angular.element(this).scope().inputFileNameChanged(this)" id="file-upload" class=" o-0 absolute" style="width: 1px">
+			<img src="public/images/{{user.profileImage}}" class="">
+		</div>
+		<div class="f6 fw7 mt1">
+			<div class="">
+				<label for="file-upload" class="dib no-outline bg-c2c-blue white b-c2c-blue hover-bg-white hover-c2c-blue-color pointer ma2 pl3 pr3 pt1 pb1 br2 mt1 bg-animate avenir">select a file</label>
+
+				<input type="button" value="upload" ng-click="uploadPhoto()" class="center db bg-c2c-orange white b-c2c-orange hover-bg-white hover-c2c-orange-color pointer pl3 pr3 pt1 pb1 br2 bg-animate no-outline avenir fw7">
+			</div>
+			<a ng-click="logout()" class="db mt1 pa2 pointer hover-c2c-orange tc">logout</a>
+		</div>
+	<!--
+		<div>
+			<span>interests</span>
+			<span>saved</span>
+			<span>following</span>
+		</div>
+	-->
+		<!-- Only display most popular -->
+	</div>
+</div>

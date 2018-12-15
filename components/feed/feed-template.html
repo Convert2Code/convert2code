@@ -1,0 +1,36 @@
+<div class="w-100 mt3">
+	<!-- RAILS CONTAINER -->
+	<!-- TODO: ADD BORDERS IF GOOD FIT -->
+	<input type="text" placeholder="search" class="w-100 pa3 mb2 mt2" ng-model="search">
+	<div class="w-100">
+		<div class="card shadow-4 mt2 mb2 pl3" ng-repeat="post in posts | filter : search">
+			<a href="/#!/post/{{post._id}}/view" class="db">
+				<h1 class="ma0 pt3 pl2 c2c-orange-underline pointer">{{post.title}}</h1>
+			</a>
+			<div class="pt1">
+				<div class="dib circle minor-profile-pic v-top">
+					<img src="public/images/{{post.createdBy.profileImage}}">
+				</div>
+				<p class="dib pt1 pl2 ma0 pb0 v-top">
+					<span class="b">by:</span> {{post.createdBy.username}}
+					<br>
+					<span class="gray">{{post.createdAt}}</span>
+				</p>
+			</div>
+
+			<p class="pa0 pt3 pl2">
+				<a href="/#!/tag/{{tag._id}}" class="montserrat pa2 br3 mr1 ml1 fw1 white pointer" ng-repeat="tag in post.tags" ng-style="{ 'background-color': tag.backgroundColor, 'border-color': tag.backgroundColor, 'color': tag.fontColor }">#{{tag.tag}}</a>
+			</p>
+			<!-- Should add beginning of content? -->
+			<!-- <p class="pt3 pl2">{{post.content}}</p> -->
+
+			<div class="mt2 pa2 tr">
+				<div class="dib no-outline ba bg-light-red b--light-red pa1 br3 v-btm">
+					<i class="fas fa-heartbeat fa-2x white v-btm"></i>
+					<div class="dib br3 pa2 montserrat white">{{post.hearts}}</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

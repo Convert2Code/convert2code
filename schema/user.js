@@ -9,9 +9,12 @@ var userSchema = new mongoose.Schema({
     password: String,
     createdAt: { type: Date, default: Date.now },
     lastSignInAt: Date,
-    interests: [String],
+    profileImage: { type: String, default: 'default.png' },
     notifications: [String],
-    posts: [mongoose.Schema.Types.ObjectId]
+    interests: [mongoose.Schema.Types.ObjectId],
+    posts: [mongoose.Schema.Types.ObjectId],
+    hearted: [mongoose.Schema.Types.ObjectId],
+    saved: [mongoose.Schema.Types.ObjectId],
 });
 
 var User = mongoose.model('User', userSchema);

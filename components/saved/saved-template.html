@@ -1,0 +1,16 @@
+<div class="w-100">
+	<h1 class="w-90 center mt4">
+		Saved Posts
+	</h1>
+	<div class="w-90 center">
+		<div ng-repeat="post in savedPosts" class="mt2 mb2 pa3 ba br3 b-c2c-orange">
+			<span>{{post.title}}</span>
+			<!-- <span>{{post.content}}</span> -->
+			<div class="dib">
+				<!-- <i class="fas fa-pencil-alt fa-1x fa-fw c2c-orange pointer"></i> -->
+				<a href="/#!/post/{{post._id}}/view"><i class="fa fa-eye fa-1x fa-fw c2c-orange pointer"></i></a>
+				<!-- <i class="fa fa-trash-o fa-1x fa-fw red pointer"></i> -->
+			</div>
+		</div>
+	</div>
+</div>

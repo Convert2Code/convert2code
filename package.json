@@ -4,7 +4,7 @@
   "description": "Convert to Code - A Free Coding Resource",
   "main": "server.js",
   "scripts": {
-    "test": "echo Test your code by opening http://localhost:3000 in your browser.",
+    "test": "echo Test your code by opening http://localhost:80 in your browser.",
     "jshint": "./node_modules/.bin/jshint --config .jshintrc --exclude=node_modules,test . || exit 0"
   },
   "author": "Caleb Weaver",
@@ -21,7 +21,6 @@
     "async": "^1.5.0",
     "bcrypt": "^3.0.2",
     "body-parser": "^1.18.3",
-    "client-sessions": "^0.8.0",
     "express": "^4.13.3",
     "express-session": "^1.15.6",
     "faker": "^3.0.1",
