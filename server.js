@@ -20,7 +20,7 @@ var session = require('express-session');
 var bodyParser = require('body-parser');
 var async = require('async');
 var express = require('express');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 var fs = require('fs');
 var multer = require('multer');
 var processFormBody = multer({storage: multer.memoryStorage()}).single('profilepic');
@@ -46,7 +46,7 @@ var Tag = require('./schema/tag.js');
 
 var app = express();
 
-var BCRYPT_SALT_ROUNDS = 12;
+// var BCRYPT_SALT_ROUNDS = 12;
 
 mongoose.connect('mongodb://localhost/convert2code');
 
@@ -256,7 +256,12 @@ app.post('/user/new', function(req, res) {
 		notifications: req.body.notifications // Would a new user have any notifications?
 	};
 
-	bcrypt.hash(newUser.password, BCRYPT_SALT_ROUNDS).then(function(hashedPassword) {
+	bcrypt.hash(newUser.password, null, null, function(err, hashedPassword) {
+		if(err) {
+			console.log('Unable to hash given string: ' + err);
+    	res.status(400).send(JSON.stringify(err));
+			return;
+		}
 
 		newUser.password = hashedPassword;
 
@@ -275,10 +280,6 @@ app.post('/user/new', function(req, res) {
 		  res.status(200).send(JSON.stringify(user));
 		  return
 		});
-	}).catch(function(err) {
-		console.log('Unable to hash given string');
-    res.status(400).send(JSON.stringify(err));
-		return;
 	});
 });
 
